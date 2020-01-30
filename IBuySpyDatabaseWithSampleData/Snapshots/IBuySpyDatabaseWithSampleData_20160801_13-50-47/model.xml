@@ -1,0 +1,3373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataSchemaModel FileFormatVersion="1.2" SchemaVersion="2.9" DspName="Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider" CollationLcid="1033" CollationCaseSensitive="False" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+	<Header>
+		<CustomData Category="AnsiNulls">
+			<Metadata Name="AnsiNulls" Value="True" />
+		</CustomData>
+		<CustomData Category="QuotedIdentifier">
+			<Metadata Name="QuotedIdentifier" Value="True" />
+		</CustomData>
+		<CustomData Category="CompatibilityMode">
+			<Metadata Name="CompatibilityMode" Value="130" />
+		</CustomData>
+		<CustomData Category="Reference" Type="Assembly">
+			<Metadata Name="LogicalName" Value="IBuySpyDatabaseWithSampleData.dll" />
+			<Metadata Name="FileName" Value="C:\PROJECTS\IBUYSPY2016\IBUYSPYDATABASEWITHSAMPLEDATA\OBJ\DEBUG\IBUYSPYDATABASEWITHSAMPLEDATA.DLL" />
+			<Metadata Name="AssemblyName" Value="IBuySpyDatabaseWithSampleData" />
+			<Metadata Name="PermissionSet" Value="SAFE" />
+			<Metadata Name="Owner" Value="" />
+			<Metadata Name="GenerateSqlClrDdl" Value="True" />
+			<Metadata Name="IsVisible" Value="True" />
+			<Metadata Name="IsModelAware" Value="True" />
+			<Metadata Name="SkipCreationIfEmpty" Value="True" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Projects\ibuyspy2016\IBuySpyDatabaseWithSampleData\obj\Debug\IBuySpyDatabaseWithSampleData.pdb" />
+		</CustomData>
+		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
+	</Header>
+	<Model>
+		<Element Type="SqlDatabaseOptions">
+			<Property Name="Collation" Value="SQL_Latin1_General_CP1_CI_AS" />
+			<Property Name="IsAnsiNullDefaultOn" Value="True" />
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsAnsiWarningsOn" Value="True" />
+			<Property Name="IsArithAbortOn" Value="True" />
+			<Property Name="IsConcatNullYieldsNullOn" Value="True" />
+			<Property Name="IsTornPageProtectionOn" Value="False" />
+			<Property Name="IsFullTextEnabled" Value="True" />
+			<Property Name="CompatibilityMode" Value="130" />
+			<Property Name="PageVerifyMode" Value="3" />
+			<Property Name="DefaultLanguage" Value="" />
+			<Property Name="DefaultFullTextLanguage" Value="" />
+			<Property Name="QueryStoreStaleQueryThreshold" Value="367" />
+			<Relationship Name="DefaultFilegroup">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[PRIMARY]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_Categories]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Categories].[CategoryID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Categories].[CategoryName]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="3" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_CustomerAdd]">
+			<Property Name="BodyScript">
+				<Value AnsiNulls="False"><![CDATA[
+
+INSERT INTO CMRC_Customers
+(
+    FullName,
+    EmailAddress,
+    Password
+)
+
+VALUES
+(
+    @FullName,
+    @Email,
+    @Password
+)
+
+SELECT
+    @CustomerID = @@Identity]]></Value>
+			</Property>
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[FullName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[EmailAddress]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[Password]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerAdd].[@FullName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerAdd].[@Email]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerAdd].[@Password]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerAdd].[@CustomerID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerAdd].[@FullName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerAdd].[@Email]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerAdd].[@Password]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerAdd].[@CustomerID]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="352" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_CustomerAdd&#xD;&#xA;(&#xD;&#xA;    @FullName   nvarchar(50),&#xD;&#xA;    @Email      nvarchar(50),&#xD;&#xA;    @Password   nvarchar(50),&#xD;&#xA;    @CustomerID int OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_CustomerAlsoBought]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+/* We want to take the top 5 products contained in
+    the orders where someone has purchased the given Product */
+SELECT  TOP 5 
+    CMRC_OrderDetails.ProductID,
+    CMRC_Products.ModelName,
+    SUM(CMRC_OrderDetails.Quantity) as TotalNum
+
+FROM    
+    CMRC_OrderDetails
+  INNER JOIN CMRC_Products ON CMRC_OrderDetails.ProductID = CMRC_Products.ProductID
+
+WHERE   OrderID IN 
+(
+    /* This inner query should retrieve all orders that have contained the productID */
+    SELECT DISTINCT OrderID 
+    FROM CMRC_OrderDetails
+    WHERE ProductID = @ProductID
+)
+AND CMRC_OrderDetails.ProductID != @ProductID 
+
+GROUP BY CMRC_OrderDetails.ProductID, CMRC_Products.ModelName 
+
+ORDER BY TotalNum DESC]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerAlsoBought].[@ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerAlsoBought].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="792" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_CustomerAlsoBought&#xD;&#xA;(&#xD;&#xA;    @ProductID int&#xD;&#xA;)&#xD;&#xA;As" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_CustomerDetail]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    @FullName = FullName, 
+    @Email    = EmailAddress, 
+    @Password = Password
+
+FROM 
+    CMRC_Customers
+
+WHERE 
+    CustomerID = @CustomerID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerDetail].[@FullName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[FullName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerDetail].[@Email]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[EmailAddress]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerDetail].[@Password]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[Password]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerDetail].[@CustomerID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerDetail].[@CustomerID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerDetail].[@FullName]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerDetail].[@Email]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerDetail].[@Password]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="351" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_CustomerDetail&#xD;&#xA;(&#xD;&#xA;    @CustomerID int,&#xD;&#xA;    @FullName   nvarchar(50) OUTPUT,&#xD;&#xA;    @Email      nvarchar(50) OUTPUT,&#xD;&#xA;    @Password   nvarchar(50) OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_CustomerLogin]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    @CustomerID = CustomerID
+    
+FROM 
+    CMRC_Customers
+    
+WHERE 
+    EmailAddress = @Email
+  AND 
+    Password = @Password
+
+IF @@Rowcount < 1 
+SELECT 
+    @CustomerID = 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerLogin].[@CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[EmailAddress]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerLogin].[@Email]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[Password]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_CustomerLogin].[@Password]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerLogin].[@Email]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerLogin].[@Password]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_CustomerLogin].[@CustomerID]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="340" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_CustomerLogin&#xD;&#xA;(&#xD;&#xA;    @Email      nvarchar(50),&#xD;&#xA;    @Password   nvarchar(50),&#xD;&#xA;    @CustomerID int OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_Customers]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Customers].[CustomerID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Customers].[FullName]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Customers].[EmailAddress]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Customers].[Password]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="4" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_OrderDetails]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_OrderDetails].[OrderID]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_OrderDetails].[ProductID]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_OrderDetails].[Quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_OrderDetails].[UnitCost]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[money]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_Orders]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Orders].[OrderID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Orders].[CustomerID]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Orders].[OrderDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Orders].[ShipDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_OrdersAdd]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+BEGIN TRAN AddOrder
+
+/* Create the Order header */
+INSERT INTO CMRC_Orders
+(
+    CustomerID, 
+    OrderDate, 
+    ShipDate
+)
+VALUES
+(   
+    @CustomerID, 
+    @OrderDate, 
+    @ShipDate
+)
+
+SELECT
+    @OrderID = @@Identity    
+
+/* Copy items from given shopping cart to OrdersDetail table for given OrderID*/
+INSERT INTO CMRC_OrderDetails
+(
+    OrderID, 
+    ProductID, 
+    Quantity, 
+    UnitCost
+)
+
+SELECT 
+    @OrderID, 
+    CMRC_ShoppingCart.ProductID, 
+    Quantity, 
+    CMRC_Products.UnitCost
+
+FROM 
+    CMRC_ShoppingCart 
+  INNER JOIN CMRC_Products ON CMRC_ShoppingCart.ProductID = CMRC_Products.ProductID
+  
+WHERE 
+    CartID = @CartID
+
+/* Removal of  items from user's shopping cart will happen on the business layer*/
+EXEC CMRC_ShoppingCartEmpty @CartID
+
+COMMIT TRAN AddOrder]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[ShipDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersAdd].[@CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersAdd].[@OrderDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersAdd].[@ShipDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersAdd].[@OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersAdd].[@CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartEmpty]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersAdd].[@CustomerID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersAdd].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersAdd].[@OrderDate]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersAdd].[@ShipDate]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersAdd].[@OrderID]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="6" />
+				<Property Name="Length" Value="1024" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_OrdersAdd&#xD;&#xA;(&#xD;&#xA;    @CustomerID int,&#xD;&#xA;    @CartID     nvarchar(50),&#xD;&#xA;    @OrderDate  datetime,        &#xD;&#xA;    @ShipDate   datetime,&#xD;&#xA;    @OrderID    int OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_OrdersDetail]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+/* Return the order dates from the Orders
+    Also verifies the order exists for this customer. */
+SELECT 
+    @OrderDate = OrderDate,
+    @ShipDate = ShipDate
+    
+FROM    
+    CMRC_Orders
+    
+WHERE   
+    OrderID = @OrderID
+    AND
+    CustomerID = @CustomerID
+
+IF @@Rowcount = 1
+BEGIN
+
+/* First, return the OrderTotal out param */
+SELECT  
+    @OrderTotal = Cast(SUM(CMRC_OrderDetails.Quantity * CMRC_OrderDetails.UnitCost) as money)
+    
+FROM    
+    CMRC_OrderDetails
+    
+WHERE   
+    OrderID= @OrderID
+
+/* Then, return the recordset of info */
+SELECT  
+    CMRC_Products.ProductID, 
+    CMRC_Products.ModelName,
+    CMRC_Products.ModelNumber,
+    CMRC_OrderDetails.UnitCost,
+    CMRC_OrderDetails.Quantity,
+    (CMRC_OrderDetails.Quantity * CMRC_OrderDetails.UnitCost) as ExtendedAmount
+
+FROM
+    CMRC_OrderDetails
+  INNER JOIN CMRC_Products ON CMRC_OrderDetails.ProductID = CMRC_Products.ProductID
+  
+WHERE   
+    OrderID = @OrderID
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersDetail].[@OrderDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersDetail].[@ShipDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[ShipDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersDetail].[@OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersDetail].[@CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersDetail].[@OrderTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[money]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersDetail].[@OrderID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersDetail].[@CustomerID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersDetail].[@OrderDate]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersDetail].[@ShipDate]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersDetail].[@OrderTotal]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[money]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="1183" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_OrdersDetail&#xD;&#xA;(&#xD;&#xA;    @OrderID    int,&#xD;&#xA;    @CustomerID int,&#xD;&#xA;    @OrderDate  datetime OUTPUT,&#xD;&#xA;    @ShipDate   datetime OUTPUT,&#xD;&#xA;    @OrderTotal money OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_OrdersList]">
+			<Property Name="BodyScript">
+				<Value QuotedIdentifiers="False"><![CDATA[
+
+SELECT  
+    CMRC_Orders.OrderID,
+    Cast(sum(CMRC_OrderDetails.Quantity*CMRC_OrderDetails.UnitCost) as money) as OrderTotal,
+    CMRC_Orders.OrderDate, 
+    CMRC_Orders.ShipDate
+
+FROM    
+    CMRC_Orders 
+  INNER JOIN CMRC_OrderDetails ON CMRC_Orders.OrderID = CMRC_OrderDetails.OrderID
+
+GROUP BY    
+    CustomerID, 
+    CMRC_Orders.OrderID, 
+    CMRC_Orders.OrderDate, 
+    CMRC_Orders.ShipDate
+HAVING  
+    CMRC_Orders.CustomerID = @CustomerID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsQuotedIdentifierOn" Value="False" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[money]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[ShipDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[CustomerID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrdersList].[@CustomerID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_OrdersList].[@CustomerID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="533" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE Procedure CMRC_OrdersList&#xD;&#xA;(&#xD;&#xA;    @CustomerID int&#xD;&#xA;)&#xD;&#xA;As" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ProductCategoryList]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    CategoryID,
+    CategoryName
+
+FROM 
+    CMRC_Categories
+
+ORDER BY 
+    CategoryName ASC]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Categories]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Categories].[CategoryID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Categories].[CategoryName]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="162" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ProductCategoryList&#xD;&#xA;&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ProductDetail]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    @ProductID    = ProductID,
+    @ModelNumber  = ModelNumber,
+    @ModelName    = ModelName,
+    @ProductImage = ProductImage,
+    @UnitCost     = UnitCost,
+    @Description  = Description
+
+FROM 
+    CMRC_Products
+
+WHERE 
+    ProductID = @ProductID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductDetail].[@ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductDetail].[@ModelNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductDetail].[@ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductDetail].[@ProductImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductDetail].[@UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductDetail].[@Description]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[Description]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductDetail].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductDetail].[@ModelNumber]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductDetail].[@ModelName]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductDetail].[@ProductImage]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductDetail].[@UnitCost]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[money]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductDetail].[@Description]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="4000" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="541" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ProductDetail&#xD;&#xA;(&#xD;&#xA;    @ProductID    int,&#xD;&#xA;    @ModelNumber  nvarchar(50) OUTPUT,&#xD;&#xA;    @ModelName    nvarchar(50) OUTPUT,&#xD;&#xA;    @ProductImage nvarchar(50) OUTPUT,&#xD;&#xA;    @UnitCost     money OUTPUT,&#xD;&#xA;    @Description  nvarchar(4000) OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_Products]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[ProductID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[CategoryID]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[ModelNumber]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[ModelName]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[ProductImage]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[UnitCost]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[money]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Products].[Description]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="3800" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ProductsByCategory]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    ProductID,
+    ModelName,
+    UnitCost, 
+    ProductImage
+
+FROM 
+    CMRC_Products
+
+WHERE 
+    CategoryID = @CategoryID
+
+ORDER BY 
+    ModelName, 
+    ModelNumber]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[CategoryID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductsByCategory].[@CategoryID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelNumber]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductsByCategory].[@CategoryID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="267" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ProductsByCategory&#xD;&#xA;(&#xD;&#xA;    @CategoryID int&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ProductSearch]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    ProductID,
+    ModelName,
+    ModelNumber,
+    UnitCost, 
+    ProductImage
+
+FROM 
+    CMRC_Products
+
+WHERE 
+    ModelNumber LIKE '%' + @Search + '%' 
+   OR
+    ModelName LIKE '%' + @Search + '%'
+   OR
+    Description LIKE '%' + @Search + '%']]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ProductSearch].[@Search]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[Description]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ProductSearch].[@Search]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="348" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ProductSearch&#xD;&#xA;(&#xD;&#xA;    @Search nvarchar(255)&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ProductsMostPopular]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT TOP 5 
+    CMRC_OrderDetails.ProductID, 
+    SUM(CMRC_OrderDetails.Quantity) as TotalNum, 
+    CMRC_Products.ModelName
+    
+FROM    
+    CMRC_OrderDetails
+  INNER JOIN CMRC_Products ON CMRC_OrderDetails.ProductID = CMRC_Products.ProductID
+  
+GROUP BY 
+    CMRC_OrderDetails.ProductID, 
+    CMRC_Products.ModelName
+    
+ORDER BY 
+    TotalNum DESC]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="422" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ProductsMostPopular&#xD;&#xA;&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_Reviews]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Reviews].[ReviewID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Reviews].[ProductID]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Reviews].[CustomerName]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Reviews].[CustomerEmail]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Reviews].[Rating]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_Reviews].[Comments]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="3850" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ReviewsAdd]">
+			<Property Name="BodyScript">
+				<Value QuotedIdentifiers="False"><![CDATA[
+
+INSERT INTO CMRC_Reviews
+(
+    ProductID, 
+    CustomerName, 
+    CustomerEmail, 
+    Rating, 
+    Comments
+)
+VALUES
+(
+    @ProductID, 
+    @CustomerName, 
+    @CustomerEmail, 
+    @Rating, 
+    @Comments
+)
+
+SELECT 
+    @ReviewID = @@Identity]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsQuotedIdentifierOn" Value="False" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[CustomerName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[CustomerEmail]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[Rating]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[Comments]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsAdd].[@ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsAdd].[@CustomerName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsAdd].[@CustomerEmail]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsAdd].[@Rating]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsAdd].[@Comments]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsAdd].[@ReviewID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsAdd].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsAdd].[@CustomerName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsAdd].[@CustomerEmail]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsAdd].[@Rating]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsAdd].[@Comments]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="3850" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsAdd].[@ReviewID]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="495" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ReviewsAdd&#xD;&#xA;(&#xD;&#xA;    @ProductID     int,&#xD;&#xA;    @CustomerName  nvarchar(50),&#xD;&#xA;    @CustomerEmail nvarchar(50),&#xD;&#xA;    @Rating        int,&#xD;&#xA;    @Comments      nvarchar(3850),&#xD;&#xA;    @ReviewID      int OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ReviewsList]">
+			<Property Name="BodyScript">
+				<Value QuotedIdentifiers="False"><![CDATA[
+
+SELECT 
+    ReviewID, 
+    CustomerName, 
+    Rating, 
+    Comments
+    
+FROM 
+    CMRC_Reviews
+    
+WHERE 
+    ProductID = @ProductID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsQuotedIdentifierOn" Value="False" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[ReviewID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[CustomerName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[Rating]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[Comments]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ReviewsList].[@ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ReviewsList].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="215" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ReviewsList&#xD;&#xA;(&#xD;&#xA;    @ProductID int&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[CMRC_ShoppingCart]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_ShoppingCart].[RecordID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_ShoppingCart].[CartID]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_ShoppingCart].[Quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_ShoppingCart].[ProductID]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[CMRC_ShoppingCart].[DateCreated]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="18" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[CMRC_ShoppingCart].[IX_ShoppingCart]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartAddItem]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+DECLARE @CountItems int
+
+SELECT
+    @CountItems = Count(ProductID)
+FROM
+    CMRC_ShoppingCart
+WHERE
+    ProductID = @ProductID
+  AND
+    CartID = @CartID
+
+IF @CountItems > 0  /* There are items - update the current quantity */
+
+    UPDATE
+        CMRC_ShoppingCart
+    SET
+        Quantity = (@Quantity + CMRC_ShoppingCart.Quantity)
+    WHERE
+        ProductID = @ProductID
+      AND
+        CartID = @CartID
+
+ELSE  /* New entry for this Cart.  Add a new record */
+
+    INSERT INTO CMRC_ShoppingCart
+    (
+        CartID,
+        Quantity,
+        ProductID
+    )
+    VALUES
+    (
+        @CartID,
+        @Quantity,
+        @ProductID
+    )]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartAddItem].[@ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartAddItem].[@CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartAddItem].[@Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartAddItem].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartAddItem].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartAddItem].[@Quantity]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="802" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartAddItem&#xD;&#xA;(&#xD;&#xA;    @CartID nvarchar(50),&#xD;&#xA;    @ProductID int,&#xD;&#xA;    @Quantity int&#xD;&#xA;)&#xD;&#xA;As" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartEmpty]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+DELETE FROM CMRC_ShoppingCart
+
+WHERE 
+    CartID = @CartID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartEmpty].[@CartID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartEmpty].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="144" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartEmpty&#xD;&#xA;(&#xD;&#xA;    @CartID nvarchar(50)&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartItemCount]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    @ItemCount = COUNT(ProductID)
+    
+FROM 
+    CMRC_ShoppingCart
+    
+WHERE 
+    CartID = @CartID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartItemCount].[@ItemCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartItemCount].[@CartID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartItemCount].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartItemCount].[@ItemCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="232" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartItemCount&#xD;&#xA;(&#xD;&#xA;    @CartID    nvarchar(50),&#xD;&#xA;    @ItemCount int OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartList]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    CMRC_Products.ProductID, 
+    CMRC_Products.ModelName,
+    CMRC_Products.ModelNumber,
+    CMRC_ShoppingCart.Quantity,
+    CMRC_Products.UnitCost,
+    Cast((CMRC_Products.UnitCost * CMRC_ShoppingCart.Quantity) as money) as ExtendedAmount
+
+FROM 
+    CMRC_Products,
+    CMRC_ShoppingCart
+
+WHERE 
+    CMRC_Products.ProductID = CMRC_ShoppingCart.ProductID
+  AND 
+    CMRC_ShoppingCart.CartID = @CartID
+
+ORDER BY 
+    CMRC_Products.ModelName, 
+    CMRC_Products.ModelNumber]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ModelNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[money]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartList].[@CartID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartList].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="580" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartList&#xD;&#xA;(&#xD;&#xA;    @CartID nvarchar(50)&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartMigrate]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+UPDATE 
+    CMRC_ShoppingCart
+    
+SET 
+    CartID = @NewCartId 
+    
+WHERE 
+    CartID = @OriginalCartId]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartMigrate].[@NewCartId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartMigrate].[@OriginalCartId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartMigrate].[@OriginalCartId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartMigrate].[@NewCartId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="240" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartMigrate&#xD;&#xA;(&#xD;&#xA;    @OriginalCartId nvarchar(50),&#xD;&#xA;    @NewCartId      nvarchar(50)&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartRemoveAbandoned]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+DELETE FROM CMRC_ShoppingCart
+
+WHERE 
+    DATEDIFF(dd, DateCreated, GetDate()) > 1]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[DateCreated]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="148" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartRemoveAbandoned&#xD;&#xA;&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartRemoveItem]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+DELETE FROM CMRC_ShoppingCart
+
+WHERE 
+    CartID = @CartID
+  AND
+    ProductID = @ProductID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartRemoveItem].[@CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartRemoveItem].[@ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartRemoveItem].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartRemoveItem].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="205" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartRemoveItem&#xD;&#xA;(&#xD;&#xA;    @CartID nvarchar(50),&#xD;&#xA;    @ProductID int&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartTotal]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+SELECT 
+    @TotalCost = SUM(CMRC_Products.UnitCost * CMRC_ShoppingCart.Quantity)
+
+FROM 
+    CMRC_ShoppingCart,
+    CMRC_Products
+
+WHERE
+    CMRC_ShoppingCart.CartID = @CartID
+  AND
+    CMRC_Products.ProductID = CMRC_ShoppingCart.ProductID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartTotal].[@TotalCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartTotal].[@CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartTotal].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartTotal].[@TotalCost]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[money]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="365" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartTotal&#xD;&#xA;(&#xD;&#xA;    @CartID    nvarchar(50),&#xD;&#xA;    @TotalCost money OUTPUT&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CMRC_ShoppingCartUpdate]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+
+UPDATE CMRC_ShoppingCart
+
+SET 
+    Quantity = @Quantity
+
+WHERE 
+    CartID = @CartID 
+  AND 
+    ProductID = @ProductID]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartUpdate].[@Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartUpdate].[@CartID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCartUpdate].[@ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartUpdate].[@CartID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartUpdate].[@ProductID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CMRC_ShoppingCartUpdate].[@Quantity]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="256" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE Procedure CMRC_ShoppingCartUpdate&#xD;&#xA;(&#xD;&#xA;    @CartID    nvarchar(50),&#xD;&#xA;    @ProductID int,&#xD;&#xA;    @Quantity  int&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Orders_OrderDate]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderDate]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="8" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Orders_ShipDate]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[ShipDate]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="9" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_ShoppingCart_DateCreated]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[DateCreated]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="16" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_ShoppingCart_Quantity]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((1))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[Quantity]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="15" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_OrderDetails_Orders]">
+			<Property Name="IsNotForReplication" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[OrderID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="7" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Orders_Customers]">
+			<Property Name="IsNotForReplication" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders].[CustomerID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers].[CustomerID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="11" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Products_Categories]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[CategoryID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Categories].[CategoryID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Categories]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="13" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Reviews_Products]">
+			<Property Name="IsNotForReplication" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews].[ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Reviews]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="14" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_ShoppingCart_Products]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart].[ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products].[ProductID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="18" />
+		</Element>
+		<Element Type="SqlUniqueConstraint" Name="[dbo].[IX_Customers]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_Customers].[EmailAddress]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="5" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_CMRC_Categories]">
+			<Property Name="IsClustered" Value="False" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_Categories].[CategoryID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Categories]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="3" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_CMRC_Customers]">
+			<Property Name="IsClustered" Value="False" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_Customers].[CustomerID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Customers]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="4" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_CMRC_OrderDetails]">
+			<Property Name="IsClustered" Value="False" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_OrderDetails].[OrderID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_OrderDetails].[ProductID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_OrderDetails]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="6" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_CMRC_Orders]">
+			<Property Name="IsClustered" Value="False" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_Orders].[OrderID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Orders]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="10" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_CMRC_Products]">
+			<Property Name="IsClustered" Value="False" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_Products].[ProductID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_Products]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="12" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_CMRC_ShoppingCart]">
+			<Property Name="IsClustered" Value="False" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[CMRC_ShoppingCart].[RecordID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[CMRC_ShoppingCart]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="17" />
+		</Element>
+	</Model>
+</DataSchemaModel>

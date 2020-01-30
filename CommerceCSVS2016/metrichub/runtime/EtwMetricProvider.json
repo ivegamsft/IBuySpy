@@ -1,0 +1,14 @@
+[
+  {
+    "ProviderName": "IIS: WWW Server",
+    "ProviderGuid": "3A2A4E84-4C21-4981-AE10-3FDA0D9B0F83",
+    "Flags": 4294967294,
+    "Level": "Informational"
+  },
+  {
+    "ProviderName": "Microsoft-Windows-IIS-Logging",
+    "ProviderGuid": "7E8AD27F-B271-4EA2-A783-A47BDE29143B",
+    "Flags": 9223372036854775808,
+    "Level": "Informational"
+  }
+]

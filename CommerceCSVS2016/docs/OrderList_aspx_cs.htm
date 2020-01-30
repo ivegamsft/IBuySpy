@@ -1,0 +1,72 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Data.SqlClient;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.SessionState;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> <font color= "blue">class</font> OrderList : System.Web.UI.Page {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label MyError;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.DataGrid MyList;
+    
+        <font color= "blue">public</font> OrderList() {
+            Page.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Page_Load event on this page is used to obtain</font>
+        <font color= "green">// from a database a collection of all orders placed</font>
+        <font color= "green">// by the current customer.  The collection is then</font>
+        <font color= "green">// databound to a templated asp:datalist control.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+
+            String customerID = User.Identity.Name;
+
+            <font color= "green">// Obtain and bind a list of all orders ever placed by visiting customer</font>
+            ASPNET.StarterKit.Commerce.OrdersDB orderHistory = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.OrdersDB();
+        
+            MyList.DataSource = orderHistory.GetCustomerOrders(customerID);
+            MyList.DataBind();
+
+            <font color= "green">// Hide the list and display a message if no orders have ever been made</font>
+            <font color= "blue">if</font> (MyList.Items.Count == 0) {
+                MyError.Text = &quot;You have no orders to display.&quot;;
+                MyList.Visible = <font color= "blue">false</font>;
+            }
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {    
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+
+    }
+}
+</pre></font>

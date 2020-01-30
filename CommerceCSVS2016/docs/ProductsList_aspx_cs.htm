@@ -1,0 +1,72 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.SessionState;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ProductsList : System.Web.UI.Page {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.DataList MyList;
+    
+        <font color= "blue">public</font> ProductsList() {
+            Page.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Page_Load event on this page is used to obtain</font>
+        <font color= "green">// from a database a collection of all products within a</font>
+        <font color= "green">// specified product category.  The collection is then</font>
+        <font color= "green">// databound to a templated asp:datalist control.</font>
+        <font color= "green">//</font>
+        <font color= "green">// The product category to obtain is specified using</font>
+        <font color= "green">// a querystring argument to the page.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Note that this page is output cached at 1 hour</font>
+        <font color= "green">// intervals.  This eliminates the need to hit the database</font>
+        <font color= "green">// on each request to the page.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+
+            <font color= "green">// Obtain categoryId from QueryString</font>
+            <font color= "blue">int</font> categoryId = Int32.Parse(Request.Params[&quot;CategoryID&quot;]);
+
+            <font color= "green">// Obtain products and databind to an asp:datalist control</font>
+            ASPNET.StarterKit.Commerce.ProductsDB productCatalogue = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ProductsDB();
+        
+            MyList.DataSource = productCatalogue.GetProducts(categoryId);
+            MyList.DataBind();
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {    
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+
+    }
+}
+</pre></font>

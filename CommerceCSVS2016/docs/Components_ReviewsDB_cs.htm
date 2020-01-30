@@ -1,0 +1,114 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Configuration;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Data.SqlClient;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// ReviewsDB Class</font>
+    <font color= "green">//</font>
+    <font color= "green">// Business/Data Logic Class that encapsulates all data</font>
+    <font color= "green">// logic necessary to list/access/add reviews from</font>
+    <font color= "green">// the Commerce Starter Kit Reviews database.</font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************</font>
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ReviewsDB {
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ReviewsDB.GetReviews() Method &lt;a name=&quot;GetReviews&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetReviews method returns a struct containing</font>
+        <font color= "green">// a forward-only, read-only DataReader.  This displays a list of all</font>
+        <font color= "green">// user-submitted reviews for a specified product.</font>
+        <font color= "green">// The SQLDataReaderResult struct also returns the SQL connection,</font>
+        <font color= "green">// which must be explicitly closed after the data from the DataReader</font>
+        <font color= "green">// is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ReviewsList.htm&quot; style=&quot;color:green&quot;&gt;ReviewsList Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader GetReviews(<font color= "blue">int</font> productID) {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ReviewsList&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterProductID = <font color= "blue">new</font> SqlParameter(&quot;@ProductID&quot;, SqlDbType.Int, 4);
+            parameterProductID.Value = productID;
+            myCommand.Parameters.Add(parameterProductID);
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ReviewsDB.AddReview() Method &lt;a name=&quot;AddReview&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The AddReview method adds a new review into the</font>
+        <font color= "green">// Commerce Starter Kit Reviews database.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ReviewsAdd.htm&quot; style=&quot;color:green&quot;&gt;ReviewsAdd Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> <font color= "blue">void</font> AddReview(<font color= "blue">int</font> productID, <font color= "blue">string</font> customerName, <font color= "blue">string</font> customerEmail, <font color= "blue">int</font> rating, <font color= "blue">string</font> comments) {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ReviewsAdd&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterProductID = <font color= "blue">new</font> SqlParameter(&quot;@ProductID&quot;, SqlDbType.Int, 4);
+            parameterProductID.Value = productID;
+            myCommand.Parameters.Add(parameterProductID);
+
+            SqlParameter parameterCustomerName = <font color= "blue">new</font> SqlParameter(&quot;@CustomerName&quot;, SqlDbType.NVarChar, 50);
+            parameterCustomerName.Value = customerName;
+            myCommand.Parameters.Add(parameterCustomerName);
+
+            SqlParameter parameterEmail = <font color= "blue">new</font> SqlParameter(&quot;@CustomerEmail&quot;, SqlDbType.NVarChar, 50);
+            parameterEmail.Value = customerEmail;
+            myCommand.Parameters.Add(parameterEmail);
+
+            SqlParameter parameterRating = <font color= "blue">new</font> SqlParameter(&quot;@Rating&quot;, SqlDbType.Int, 4);
+            parameterRating.Value = rating;
+            myCommand.Parameters.Add(parameterRating);
+
+            SqlParameter parameterComments = <font color= "blue">new</font> SqlParameter(&quot;@Comments&quot;, SqlDbType.NVarChar, 3850);
+            parameterComments.Value = comments;
+            myCommand.Parameters.Add(parameterComments);
+
+            SqlParameter parameterReviewID = <font color= "blue">new</font> SqlParameter(&quot;@ReviewID&quot;, SqlDbType.Int, 4);
+            parameterReviewID.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterReviewID);
+
+            <font color= "green">// Open the connection and execute the Command</font>
+            myConnection.Open();
+            myCommand.ExecuteNonQuery();
+            myConnection.Close();
+        }
+    }
+}
+
+</pre></font>

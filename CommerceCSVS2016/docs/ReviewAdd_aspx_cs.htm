@@ -1,0 +1,111 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ReviewAdd : System.Web.UI.Page {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label ModelName;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.TextBox Name;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.TextBox Email;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RadioButtonList Rating;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.TextBox Comment;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.ImageButton ReviewAddBtn;
+    
+        <font color= "blue">public</font> ReviewAdd() {
+            Page.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Page_Load event on this page is used to fetch details</font>
+        <font color= "green">// about the product to review.  It then updates UI elements</font>
+        <font color= "green">// with the results.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Note that the product to review is specified using</font>
+        <font color= "green">// a querystring argument to the page.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+           
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+
+            <font color= "blue">if</font> (Page.IsPostBack != <font color= "blue">true</font>) {
+
+                <font color= "green">// Obtain ProductID of Product to Review</font>
+                <font color= "blue">int</font> productID = Int32.Parse(Request[&quot;productID&quot;]);
+        
+                <font color= "green">// Populate Product Name on Page</font>
+                ASPNET.StarterKit.Commerce.ProductsDB products = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ProductsDB();
+                ModelName.Text = products.GetProductDetails(productID).ModelName;
+            
+                <font color= "green">// Store ProductID in Page State to use on PostBack</font>
+                ViewState[&quot;productID&quot;] = productID;
+            }
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The ReviewAddBtn_Click event is used to add a new</font>
+        <font color= "green">// review into the Commerce Starter Kit Reviews database.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Note that we are deliberately HtmlEncoding all text</font>
+        <font color= "green">// values *before* adding them to the database.  This allows</font>
+        <font color= "green">// us to prevent hackers from adding images or hyperlinks</font>
+        <font color= "green">// into the message content.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> ReviewAddBtn_Click(object sender, System.Web.UI.ImageClickEventArgs e) {
+
+            <font color= "green">// Only add the review if all fields on the page are valid</font>
+            <font color= "blue">if</font> (Page.IsValid == <font color= "blue">true</font>) {
+              
+                <font color= "green">// Obtain ProductID from Page State</font>
+                <font color= "blue">int</font> productID = (<font color= "blue">int</font>) ViewState[&quot;productID&quot;];
+            
+                <font color= "green">// Obtain Rating number of RadioButtonList</font>
+                <font color= "blue">int</font> rating = Int32.Parse(Rating.SelectedItem.Value);
+             
+                <font color= "green">// Add Review to ReviewsDB.  HtmlEncode before entry</font>
+                ASPNET.StarterKit.Commerce.ReviewsDB review = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ReviewsDB();
+                review.AddReview(productID, Server.HtmlEncode(Name.Text), Server.HtmlEncode(Email.Text), rating, Server.HtmlEncode(Comment.Text));
+              
+                <font color= "green">// Redirect client back to the originating product details page</font>
+                Response.Redirect(&quot;ProductDetails.aspx?ProductID=&quot; + productID);
+            }
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {    
+            <font color= "blue">this</font>.ReviewAddBtn.Click += <font color= "blue">new</font> System.Web.UI.ImageClickEventHandler(<font color= "blue">this</font>.ReviewAddBtn_Click);
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+
+    }
+}
+</pre></font>

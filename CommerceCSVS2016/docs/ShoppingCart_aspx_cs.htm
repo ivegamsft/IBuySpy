@@ -1,0 +1,196 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Data.SqlClient;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ShoppingCart : System.Web.UI.Page {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label MyError;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.DataGrid MyList;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label lblTotal;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.ImageButton UpdateBtn;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.ImageButton CheckoutBtn;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Panel DetailsPanel;
+
+        <font color= "blue">public</font> ShoppingCart() {
+            Page.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Page_Load event on this page is used to load the</font>
+        <font color= "green">// ShoppingCart DataGrid *the first time* the page is</font>
+        <font color= "green">// accessed.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Note that subsequent postbacks to the page *do not*</font>
+        <font color= "green">// reload the Datagrid.  Instead, we rely on the control's</font>
+        <font color= "green">// built-in viewstate management to rebuild the control</font>
+        <font color= "green">// on the server.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+
+            <font color= "green">// Populate the shopping cart the first time the page is accessed.</font>
+            <font color= "blue">if</font> (Page.IsPostBack == <font color= "blue">false</font>) {
+                PopulateShoppingCartList();
+            }
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The UpdateBtn_Click event is raised when a user clicks</font>
+        <font color= "green">// the &quot;update&quot; button on the client.  The event handler</font>
+        <font color= "green">// updates all items in the cart back to the database,</font>
+        <font color= "green">// and then repopulates the datagrid with the current</font>
+        <font color= "green">// cart contents.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> UpdateBtn_Click(object sender, System.Web.UI.ImageClickEventArgs e) {
+
+            <font color= "green">// Update the Shopping Cart and then Repopulate the List</font>
+            UpdateShoppingCartDatabase();
+            PopulateShoppingCartList();
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The CheckoutBtn_Click event is raised when a user clicks</font>
+        <font color= "green">// the &quot;checkout&quot; button on the client.  The event handler</font>
+        <font color= "green">// updates all items in the cart back to the database,</font>
+        <font color= "green">// and then redirects the user to the checkout.aspx page</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> CheckoutBtn_Click(object sender, System.Web.UI.ImageClickEventArgs e) {
+
+            <font color= "green">// Update Shopping Cart</font>
+            UpdateShoppingCartDatabase();
+
+            <font color= "green">// If cart is not empty, proceed on to checkout page</font>
+            ASPNET.StarterKit.Commerce.ShoppingCartDB cart = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ShoppingCartDB();
+
+            <font color= "green">// Calculate shopping cart ID</font>
+            String cartId = cart.GetShoppingCartId();
+
+            <font color= "green">// If the cart isn't empty, navigate to checkout page</font>
+            <font color= "blue">if</font> (cart.GetItemCount(cartId) !=0) {
+                Response.Redirect(&quot;Checkout.aspx&quot;);
+            }
+            <font color= "blue">else</font> {
+                MyError.Text = &quot;You can't proceed to the Check Out page with an empty cart.&quot;;
+            }
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The PopulateShoppingCartList helper method is used to</font>
+        <font color= "green">// dynamically populate a GridControl with the contents of</font>
+        <font color= "green">// the current user's shopping cart.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">void</font> PopulateShoppingCartList() {
+
+            ASPNET.StarterKit.Commerce.ShoppingCartDB cart = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ShoppingCartDB();
+
+            <font color= "green">// Obtain current user's shopping cart ID</font>
+            String cartId = cart.GetShoppingCartId();
+
+            <font color= "green">// If no items, hide details and display message</font>
+            <font color= "blue">if</font> (cart.GetItemCount(cartId) == 0) {
+                DetailsPanel.Visible = <font color= "blue">false</font>;
+                MyError.Text = &quot;There are currently no items in your shopping cart.&quot;;
+            }
+            <font color= "blue">else</font> {
+
+                <font color= "green">// Databind Gridcontrol with Shopping Cart Items</font>
+                MyList.DataSource = cart.GetItems(cartId);
+                MyList.DataBind();
+
+                <font color= "green">//Update Total Price Label</font>
+                lblTotal.Text = String.Format( &quot;{0:c}&quot;, cart.GetTotal(cartId));
+            }
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The UpdateShoppingCartDatabase helper method is used to</font>
+        <font color= "green">// update a user's items within the shopping cart database</font>
+        <font color= "green">// using client input from the GridControl.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">void</font> UpdateShoppingCartDatabase() {
+
+            ASPNET.StarterKit.Commerce.ShoppingCartDB cart = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ShoppingCartDB();
+
+            <font color= "green">// Obtain current user's shopping cart ID</font>
+            String cartId = cart.GetShoppingCartId();
+
+            <font color= "green">// Iterate through all rows within shopping cart list</font>
+            <font color= "blue">for</font> (<font color= "blue">int</font> i=0; i &lt; MyList.Items.Count; i++) {
+
+                <font color= "green">// Obtain references to row's controls</font>
+                TextBox quantityTxt = (TextBox) MyList.Items[i].FindControl(&quot;Quantity&quot;);
+                CheckBox remove = (CheckBox) MyList.Items[i].FindControl(&quot;Remove&quot;);
+
+                <font color= "green">// Wrap in try/catch block to catch errors in the event that someone types in</font>
+                <font color= "green">// an invalid value for quantity</font>
+                <font color= "blue">int</font> quantity;
+                <font color= "blue">try</font> {
+                    quantity = Int32.Parse(quantityTxt.Text);
+
+                    <font color= "green">// If the quantity field is changed or delete is checked</font>
+                    <font color= "blue">if</font> (quantity != (<font color= "blue">int</font>)MyList.DataKeys[i] || remove.Checked == <font color= "blue">true</font>) {
+
+                        Label lblProductID = (Label) MyList.Items[i].FindControl(&quot;ProductID&quot;);
+
+                        <font color= "blue">if</font> (quantity == 0 || remove.Checked == <font color= "blue">true</font>) {
+                            cart.RemoveItem(cartId, Int32.Parse(lblProductID.Text));
+                        }
+                        <font color= "blue">else</font> {
+                            cart.UpdateItem(cartId, Int32.Parse(lblProductID.Text),quantity);
+                        }
+                    }
+                }
+                <font color= "blue">catch</font> {
+                    MyError.Text = &quot;There has been a problem with one or more of your inputs.&quot;;
+                }
+            }
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {
+            <font color= "blue">this</font>.UpdateBtn.Click += <font color= "blue">new</font> System.Web.UI.ImageClickEventHandler(<font color= "blue">this</font>.UpdateBtn_Click);
+            <font color= "blue">this</font>.CheckoutBtn.Click += <font color= "blue">new</font> System.Web.UI.ImageClickEventHandler(<font color= "blue">this</font>.CheckoutBtn_Click);
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+
+    }
+}
+</pre></font>

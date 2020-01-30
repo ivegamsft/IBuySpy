@@ -1,0 +1,42 @@
+<font size="3">
+<pre>
+<font color=blue><b><font color= "blue">&lt;%</font>@ Control Language=&quot;c#&quot; CodeBehind=&quot;_Menu.ascx.cs&quot; AutoEventWireup=&quot;false&quot; Inherits=&quot;ASPNET.StarterKit.Commerce.C_Menu&quot; <font color= "blue">%&gt;</font></b></font>
+<font color=blue><b><font color= "blue">&lt;%</font>@ OutputCache Duration=&quot;3600&quot; VaryByParam=&quot;selection&quot; <font color= "blue">%&gt;</font></b></font>
+
+<font color= "blue">&lt;%</font>--
+
+    This user control creates a menu of all product categories
+    in the database.  This forms the left-hand navigation of the
+    product catalog pages.
+
+--<font color= "blue">%&gt;</font>
+
+<font color= "blue">&lt;</font><font color="maroon">table</font> cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; width=&quot;145&quot; border=&quot;0&quot;<font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font> valign=&quot;top&quot;<font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font> colspan=&quot;2&quot;<font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">a</font> href=&quot;default.aspx&quot;<font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">img</font> src=&quot;images/logo.gif&quot; border=&quot;0&quot;<font color= "blue">&gt;</font><font color= "blue">&lt;/</font><font color="maroon">a</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font> valign=&quot;top&quot;<font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font> colspan=&quot;2&quot;<font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color=blue><b>asp:DataList id=&quot;MyList&quot; runat=&quot;server&quot; cellpadding=&quot;3&quot; cellspacing=&quot;0&quot; width=&quot;145&quot; SelectedItemStyle-BackColor=&quot;dimgray&quot; EnableViewState=&quot;false&quot;<font color= "blue">&gt;</font></b></font>
+                <font color= "blue">&lt;</font><font color="maroon">ItemTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color=blue><b>asp:HyperLink cssclass=&quot;MenuUnselected&quot; id=&quot;HyperLink1&quot; Text='<font color= "blue">&lt;%</font>#<font color=red><b> DataBinder.Eval(Container.DataItem, &quot;CategoryName&quot;) <font color= "blue">%&gt;</font>' NavigateUrl='<font color= "blue">&lt;%</font># &quot;productslist.aspx?CategoryID=&quot; + DataBinder.Eval(Container.DataItem, &quot;CategoryID&quot;) + &quot;&amp;selection=&quot; + Container.ItemIndex </b></font><font color= "blue">%&gt;</font>' runat=&quot;server&quot; <font color= "blue">/&gt;</font></b></font>
+                <font color= "blue">&lt;/</font><font color="maroon">ItemTemplate</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">SelectedItemTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color=blue><b>asp:HyperLink cssclass=&quot;MenuSelected&quot; id=&quot;HyperLink2&quot; Text='<font color= "blue">&lt;%</font>#<font color=red><b> DataBinder.Eval(Container.DataItem, &quot;CategoryName&quot;) <font color= "blue">%&gt;</font>' NavigateUrl='<font color= "blue">&lt;%</font># &quot;productslist.aspx?CategoryID=&quot; + DataBinder.Eval(Container.DataItem, &quot;CategoryID&quot;) + &quot;&amp;selection=&quot; + Container.ItemIndex </b></font><font color= "blue">%&gt;</font>' runat=&quot;server&quot; <font color= "blue">/&gt;</font></b></font>
+                <font color= "blue">&lt;/</font><font color="maroon">SelectedItemTemplate</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;/</font><font color=blue><b>asp:DataList<font color= "blue">&gt;</font></b></font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font> width=&quot;10&quot;<font color= "blue">&gt;</font>
+            &amp;nbsp;
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">a</font> href=&quot;docs/docs.htm&quot; target=&quot;_blank&quot; class=&quot;SiteLink&quot;<font color= "blue">&gt;</font>Commerce Starter Kit<font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>Documentation<font color= "blue">&lt;/</font><font color="maroon">a</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+<font color= "blue">&lt;/</font><font color="maroon">table</font><font color= "blue">&gt;</font>
+</pre></font>

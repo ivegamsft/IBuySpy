@@ -1,0 +1,76 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Web.Services;
+<font color= "blue">using</font> ASPNET.StarterKit.Commerce;
+
+<font color= "blue">public</font> <font color= "blue">class</font> InstantOrder : WebService {
+
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// InstantOrder.OrderItem() Method </font>
+    <font color= "green">//</font>
+    <font color= "green">// The OrderItem method enables a remote client to programmatically</font>
+    <font color= "green">// place an order using a webservice. </font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************      </font>
+
+    [WebMethod(Description=&quot;The OrderItem method enables a remote client to programmatically place an order using a WebService.&quot;, EnableSession=<font color= "blue">false</font>)]
+    <font color= "blue">public</font> OrderDetails OrderItem(<font color= "blue">string</font> userName, <font color= "blue">string</font> password, <font color= "blue">int</font> productID, <font color= "blue">int</font> quantity) {
+        
+        <font color= "green">// Login client using provided username and password</font>
+        ASPNET.StarterKit.Commerce.CustomersDB accountSystem = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.CustomersDB();
+        String customerId = accountSystem.Login(userName, ASPNET.StarterKit.Commerce.Components.Security.Encrypt(password));
+        
+        <font color= "blue">if</font> (customerId == <font color= "blue">null</font>) {
+            throw <font color= "blue">new</font> Exception(&quot;Error: Invalid Login!&quot;);
+        }
+
+        <font color= "green">// Wrap in try/catch block to catch errors in the event that someone types in</font>
+        <font color= "green">// an invalid value for quantity</font>
+        <font color= "blue">int</font> qty = System.Math.Abs(quantity);
+        <font color= "blue">if</font> (qty == quantity &amp;&amp; qty &lt; 1000) {
+        
+            <font color= "green">// Add Item to Shopping Cart</font>
+            ASPNET.StarterKit.Commerce.ShoppingCartDB myShoppingCart = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ShoppingCartDB();
+            myShoppingCart.AddItem(customerId, productID, qty);
+
+            <font color= "green">// Place Order</font>
+            ASPNET.StarterKit.Commerce.OrdersDB orderSystem = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.OrdersDB();
+            <font color= "blue">int</font> orderID = orderSystem.PlaceOrder(customerId, customerId);
+            
+            <font color= "green">// Return OrderDetails</font>
+            <font color= "blue">return</font> orderSystem.GetOrderDetails(orderID, customerId);
+        }
+        <font color= "blue">else</font> {
+            <font color= "green">// invalid input </font>
+            <font color= "blue">return</font> <font color= "blue">null</font>;
+        }
+    }
+     
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// InstantOrder.CheckStatus() Method </font>
+    <font color= "green">//</font>
+    <font color= "green">// The CheckStatus method enables a remote client to programmatically</font>
+    <font color= "green">// query the current status of an order in the Commerce Starter Kit System. </font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************  </font>
+     
+    [WebMethod(Description=&quot;The CheckStatus method enables a remote client to programmatically query the current status of an order in the Commerce Starter Kit System.&quot;, EnableSession=<font color= "blue">false</font>)]
+    <font color= "blue">public</font> OrderDetails CheckStatus(<font color= "blue">string</font> userName, <font color= "blue">string</font> password, <font color= "blue">int</font> orderID) {
+     
+        <font color= "green">// Login client using provided username and password</font>
+        ASPNET.StarterKit.Commerce.CustomersDB accountSystem = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.CustomersDB();
+        String customerId = accountSystem.Login(userName,ASPNET.StarterKit.Commerce.Components.Security.Encrypt(password));
+        
+        <font color= "blue">if</font> (customerId == <font color= "blue">null</font>) {
+            throw <font color= "blue">new</font> Exception(&quot;Error: Invalid Login!&quot;);
+        }
+        
+        <font color= "green">// Return OrderDetails Status for Specified Order</font>
+        ASPNET.StarterKit.Commerce.OrdersDB orderSystem = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.OrdersDB();
+        <font color= "blue">return</font> orderSystem.GetOrderDetails(orderID, customerId);
+    }
+}
+</pre></font>

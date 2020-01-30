@@ -1,0 +1,23 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/CommerceCSVS2016/**
+!/IBuySpyCommon/**
+
+# Ignore unnecessary files inside allowed directories
+# This should go after the allowed directories
+CSVS-DB/**
+IBuySpyDatabase/**
+IBuySpyPaaS/**
+IBuySpyDatabaseWithSampleData/**
+IBuySpyHealth/**
+IBuySpy-IaaS/**
+IBuySpyAPI/**
+bin/**
+obj/**
+out/**
+packages/**
+.git*
+.vs
+.zip

@@ -1,0 +1,31 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Security.Cryptography;
+<font color= "blue">using</font> System.Text;
+<font color= "blue">using</font> System.Text.RegularExpressions;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce.Components
+{
+    <font color= "green">/// &lt;summary&gt;</font>
+    <font color= "green">/// Summary description for Security.</font>
+    <font color= "green">/// &lt;/summary&gt;</font>
+    <font color= "blue">public</font> <font color= "blue">class</font> Security
+    {
+        <font color= "green">//*********************************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// Security.Encrypt() Method</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Encrypt method encrypts a clean string into a hashed string</font>
+        <font color= "green">//</font>
+        <font color= "green">//*********************************************************************</font>
+        <font color= "blue">public</font> <font color= "blue">static</font> <font color= "blue">string</font> Encrypt(<font color= "blue">string</font> cleanString)
+        {
+            Byte[] clearBytes = <font color= "blue">new</font> UnicodeEncoding().GetBytes(cleanString);
+            Byte[] hashedBytes = ((HashAlgorithm) CryptoConfig.CreateFromName(&quot;MD5&quot;)).ComputeHash(clearBytes);
+            
+            <font color= "blue">return</font> BitConverter.ToString(hashedBytes);
+        }
+    }
+}
+</pre></font>

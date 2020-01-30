@@ -1,0 +1,83 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.SessionState;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ProductDetailsPage : System.Web.UI.Page {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label ModelName;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Image ProductImage;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label UnitCost;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label ModelNumber;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.HyperLink addToCart;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label desc;
+        <font color= "blue">protected</font> C_ReviewList ReviewList;
+        <font color= "blue">protected</font> C_AlsoBought AlsoBoughtList;
+    
+        <font color= "blue">public</font> ProductDetailsPage() {
+            Page.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Page_Load event on this page is used to obtain</font>
+        <font color= "green">// product information from a database and then update</font>
+        <font color= "green">// UI elements with them.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Note that this page is output cached at 1 minute</font>
+        <font color= "green">// intervals.  This eliminates the need to hit the database</font>
+        <font color= "green">// on each request to the page.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+
+            <font color= "green">// Obtain ProductID from QueryString</font>
+            <font color= "blue">int</font> ProductID = Int32.Parse(Request.Params[&quot;ProductID&quot;]);
+
+            <font color= "green">// Obtain Product Details</font>
+            ASPNET.StarterKit.Commerce.ProductsDB products = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ProductsDB();
+            ASPNET.StarterKit.Commerce.ProductDetails myProductDetails = products.GetProductDetails(ProductID);
+
+            <font color= "green">// Update Controls with Product Details</font>
+            desc.Text = myProductDetails.Description;
+            UnitCost.Text = String.Format(&quot;{0:c}&quot;, myProductDetails.UnitCost);
+            ModelName.Text = myProductDetails.ModelName;
+            ModelNumber.Text = myProductDetails.ModelNumber.ToString();
+            ProductImage.ImageUrl = &quot;ProductImages/&quot; + myProductDetails.ProductImage;
+            addToCart.NavigateUrl = &quot;AddToCart.aspx?ProductID=&quot; + ProductID;
+            ReviewList.ProductID = ProductID;
+            AlsoBoughtList.ProductID = ProductID;
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {    
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+
+    }
+}
+</pre></font>

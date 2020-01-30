@@ -1,0 +1,901 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CF9AD60F-24DB-4105-ACAB-EE7CE8EB7C22}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASPNET.StarterKit</RootNamespace>
+    <AssemblyName>ASPNET.StarterKit</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+    <ApplicationInsightsResourceId>/subscriptions/f31b0350-72a9-4843-96c1-b93515783b91/resourcegroups/LegacyDotNetApps/providers/microsoft.insights/components/e2p-ibuyspydotnet</ApplicationInsightsResourceId>
+    <Use64BitIISExpress />
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <RestorePackages>true</RestorePackages>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/f31b0350-72a9-4843-96c1-b93515783b91/resourceGroups/rg-ibuyspy-2016/providers/microsoft.insights/components/ibuyspy2016</ApplicationInsightsAnnotationResourceId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;/p:CreatePackageOnPublish=true /p:DeployOnBuild=true   /p:Configuration=Release /p:DebugType=Full /p:ExcludeGeneratedDebugSymbol=false</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.12.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.12.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.12.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.12.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.12.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.12.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.TraceListener, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.TraceListener.2.12.0\lib\net45\Microsoft.ApplicationInsights.TraceListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.7\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.10.1.0\lib\net452\Microsoft.Azure.Search.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search.Common, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.Common.10.1.0\lib\net452\Microsoft.Azure.Search.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search.Data, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.Data.10.1.0\lib\net452\Microsoft.Azure.Search.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search.Service, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.Service.10.1.0\lib\net452\Microsoft.Azure.Search.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.21\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.19\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.6.2\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CleanBlog.css" />
+    <Content Include="Content\Cyborg_theme.css" />
+    <Content Include="Content\flatlytheme.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\journal_theme.css" />
+    <Content Include="Content\Readable_theme.css" />
+    <Content Include="Content\spacelabtheme.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="images\home-bg.jpg" />
+    <Content Include="images\spydigital.jpg" />
+    <Content Include="images\spyinhat.jpg" />
+    <Content Include="images\spyinwindow.jpg" />
+    <Content Include="metrichub\200.aspx" />
+    <Content Include="metrichub\403.aspx" />
+    <Content Include="metrichub\405.aspx" />
+    <Content Include="metrichub\500.aspx" />
+    <Content Include="metrichub\502.aspx" />
+    <Content Include="metrichub\503.aspx" />
+    <Content Include="metrichub\runtime\amd64\KernelTraceControl.dll" />
+    <Content Include="metrichub\runtime\amd64\msdia140.dll" />
+    <Content Include="metrichub\runtime\MetricHub.ConsoleMetricLogger.dll" />
+    <Content Include="metrichub\runtime\MetricHub.ConsoleMetricLogger.pdb" />
+    <Content Include="metrichub\runtime\MetricHub.Entrypoint.exe" />
+    <Content Include="metrichub\runtime\MetricHub.Entrypoint.pdb" />
+    <Content Include="metrichub\runtime\MetricHub.EtwMetricProvider.dll" />
+    <Content Include="metrichub\runtime\MetricHub.EtwMetricProvider.pdb" />
+    <Content Include="metrichub\runtime\MetricHub.FileMetricLogger.dll" />
+    <Content Include="metrichub\runtime\MetricHub.FileMetricLogger.pdb" />
+    <Content Include="metrichub\runtime\MetricHub.Infrastructure.dll" />
+    <Content Include="metrichub\runtime\MetricHub.Infrastructure.pdb" />
+    <Content Include="metrichub\runtime\MetricHub.LogFileMetricProvider.dll" />
+    <Content Include="metrichub\runtime\MetricHub.LogFileMetricProvider.pdb" />
+    <Content Include="metrichub\runtime\MetricHub.PerfCounterMetricProvider.dll" />
+    <Content Include="metrichub\runtime\MetricHub.PerfCounterMetricProvider.pdb" />
+    <Content Include="metrichub\runtime\Microsoft.Diagnostics.Tracing.TraceEvent.dll" />
+    <Content Include="metrichub\runtime\Microsoft.Diagnostics.Tracing.TraceEvent.xml" />
+    <Content Include="metrichub\runtime\Microsoft.Web.Administration.dll" />
+    <Content Include="metrichub\runtime\Newtonsoft.Json.dll" />
+    <Content Include="metrichub\runtime\Newtonsoft.Json.pdb" />
+    <Content Include="metrichub\runtime\Newtonsoft.Json.xml" />
+    <Content Include="metrichub\runtime\x86\KernelTraceControl.dll" />
+    <Content Include="metrichub\runtime\x86\msdia140.dll" />
+    <Content Include="metrichub\cpu.aspx" />
+    <Content Include="metrichub\iisstart.htm" />
+    <Content Include="metrichub\iisstart.png" />
+    <Content Include="MainLayout.Master" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProductImages\1MOR4ME.gif" />
+    <Content Include="ProductImages\BHONST93.gif" />
+    <Content Include="ProductImages\BME007.gif" />
+    <Content Include="ProductImages\BPRECISE00.gif" />
+    <Content Include="ProductImages\BRTLGT1.gif" />
+    <Content Include="ProductImages\BSUR2DUC.gif" />
+    <Content Include="ProductImages\C00LCMB1.gif" />
+    <Content Include="ProductImages\CHEW99.gif" />
+    <Content Include="ProductImages\CITSME9.gif" />
+    <Content Include="ProductImages\DNTGCGHT.gif" />
+    <Content Include="ProductImages\DNTRPR.gif" />
+    <Content Include="ProductImages\FF007.gif" />
+    <Content Include="ProductImages\GRTWTCH9.gif" />
+    <Content Include="ProductImages\ICNCU.gif" />
+    <Content Include="ProductImages\ICUCLRLY00.gif" />
+    <Content Include="ProductImages\INCPPRCLP.gif" />
+    <Content Include="ProductImages\JWLTRANS6.gif" />
+    <Content Include="ProductImages\LK4TLNT.gif" />
+    <Content Include="ProductImages\LKARCKT.gif" />
+    <Content Include="ProductImages\LNGWADN.gif" />
+    <Content Include="ProductImages\LSRPTR1.gif" />
+    <Content Include="ProductImages\NE1RPR.gif" />
+    <Content Include="ProductImages\NOBOOBOO4U.gif" />
+    <Content Include="ProductImages\NOZ119.gif" />
+    <Content Include="ProductImages\NTMBS1.gif" />
+    <Content Include="ProductImages\OPNURMIND.gif" />
+    <Content Include="ProductImages\P38.gif" />
+    <Content Include="ProductImages\PT109.gif" />
+    <Content Include="ProductImages\QLT2112.gif" />
+    <Content Include="ProductImages\RED1.gif" />
+    <Content Include="ProductImages\RU007.gif" />
+    <Content Include="ProductImages\SHADE01.gif" />
+    <Content Include="ProductImages\SQRTME1.gif" />
+    <Content Include="ProductImages\SQUKY1.gif" />
+    <Content Include="ProductImages\STKY1.gif" />
+    <Content Include="ProductImages\TCKLR1.gif" />
+    <Content Include="ProductImages\TGFDA.gif" />
+    <Content Include="ProductImages\THNKDKE1.gif" />
+    <Content Include="ProductImages\thumbs\Thumbs.db" />
+    <Content Include="Deploy\ConfigureWebserver.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dockerfile" />
+    <Content Include=".dockerignore" />
+    <Content Include="metrichub\runtime\EtwMetricProvider.json" />
+    <Content Include="metrichub\runtime\LogFileMetricProvider.json" />
+    <Content Include="metrichub\runtime\MetricHub.Entrypoint.exe.config" />
+    <Content Include="metrichub\runtime\PerfCounterMetricProvider.json" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\ibuyspy-d - Web Deploy.pubxml" />
+    <Content Include="ProductImages\thumbs\1MOR4ME.gif" />
+    <Content Include="ProductImages\thumbs\BHONST93.gif" />
+    <Content Include="ProductImages\thumbs\BME007.gif" />
+    <Content Include="ProductImages\thumbs\BPRECISE00.gif" />
+    <Content Include="ProductImages\thumbs\BRTLGT1.gif" />
+    <Content Include="ProductImages\thumbs\BSUR2DUC.gif" />
+    <Content Include="ProductImages\thumbs\C00LCMB1.gif" />
+    <Content Include="ProductImages\thumbs\CHEW99.gif" />
+    <Content Include="ProductImages\thumbs\CITSME9.gif" />
+    <Content Include="ProductImages\thumbs\DNTGCGHT.gif" />
+    <Content Include="ProductImages\thumbs\DNTRPR.gif" />
+    <Content Include="ProductImages\thumbs\FF007.gif" />
+    <Content Include="ProductImages\thumbs\GRTWTCH9.gif" />
+    <Content Include="ProductImages\thumbs\ICNCU.gif" />
+    <Content Include="ProductImages\thumbs\ICUCLRLY00.gif" />
+    <Content Include="ProductImages\thumbs\INCPPRCLP.gif" />
+    <Content Include="ProductImages\thumbs\JWLTRANS6.gif" />
+    <Content Include="ProductImages\thumbs\LK4TLNT.gif" />
+    <Content Include="ProductImages\thumbs\LKARCKT.gif" />
+    <Content Include="ProductImages\thumbs\LNGWADN.gif" />
+    <Content Include="ProductImages\thumbs\LSRPTR1.gif" />
+    <Content Include="ProductImages\thumbs\NE1RPR.gif" />
+    <Content Include="ProductImages\thumbs\NOBOOBOO4U.gif" />
+    <Content Include="ProductImages\thumbs\NOZ119.gif" />
+    <Content Include="ProductImages\thumbs\NTMBS1.gif" />
+    <Content Include="ProductImages\thumbs\OPNURMIND.gif" />
+    <Content Include="ProductImages\thumbs\P38.gif" />
+    <Content Include="ProductImages\thumbs\PT109.gif" />
+    <Content Include="ProductImages\thumbs\QLT2112.gif" />
+    <Content Include="ProductImages\thumbs\RED1.gif" />
+    <Content Include="ProductImages\thumbs\RU007.gif" />
+    <Content Include="ProductImages\thumbs\SHADE01.gif" />
+    <Content Include="ProductImages\thumbs\SQRTME1.gif" />
+    <Content Include="ProductImages\thumbs\SQUKY1.gif" />
+    <Content Include="ProductImages\thumbs\STKY1.gif" />
+    <Content Include="ProductImages\thumbs\TCKLR1.gif" />
+    <Content Include="ProductImages\thumbs\TGFDA.gif" />
+    <Content Include="ProductImages\thumbs\THNKDKE1.gif" />
+    <Content Include="ProductImages\thumbs\ULOST007.gif" />
+    <Content Include="ProductImages\thumbs\WOWPEN.gif" />
+    <Content Include="ProductImages\thumbs\WRLD00.gif" />
+    <Content Include="ProductImages\ULOST007.gif" />
+    <Content Include="ProductImages\WOWPEN.gif" />
+    <Content Include="ProductImages\WRLD00.gif" />
+    <Content Include="ProductImages\xxximage.gif" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\ai.0.22.19-build00125.js" />
+    <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="SearchResults2.aspx" />
+    <Content Include="SourceViewer\AddToCart.src" />
+    <Content Include="SourceViewer\alsobought.src" />
+    <Content Include="SourceViewer\CheckOut.src" />
+    <Content Include="SourceViewer\Default.src" />
+    <Content Include="SourceViewer\empty.src" />
+    <Content Include="SourceViewer\ErrorPage.src" />
+    <Content Include="SourceViewer\header.src" />
+    <Content Include="SourceViewer\instantorder.src" />
+    <Content Include="SourceViewer\Login.src" />
+    <Content Include="SourceViewer\menu.src" />
+    <Content Include="SourceViewer\OrderDetails.src" />
+    <Content Include="SourceViewer\OrderList.src" />
+    <Content Include="SourceViewer\popularitems.src" />
+    <Content Include="SourceViewer\ProductDetails.src" />
+    <Content Include="SourceViewer\ProductsList.src" />
+    <Content Include="SourceViewer\Register.src" />
+    <Content Include="SourceViewer\ReviewAdd.src" />
+    <Content Include="SourceViewer\reviewlist.src" />
+    <Content Include="SourceViewer\SearchResults.src" />
+    <Content Include="SourceViewer\ShoppingCart.src" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="SplashLayout.master" />
+    <Content Include="SearchLayout.master" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AddToCart.aspx" />
+    <Content Include="Content\ASPNETCommerce.css" />
+    <Content Include="CheckOut.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="docs\1x1.gif" />
+    <Content Include="docs\AddToCart.htm" />
+    <Content Include="docs\AddToCart_aspx.htm" />
+    <Content Include="docs\AddToCart_aspx_cs.htm" />
+    <Content Include="docs\alsobought.htm" />
+    <Content Include="docs\ASPNETCommerce_css.htm" />
+    <Content Include="docs\CheckOutPage.htm" />
+    <Content Include="docs\CheckOut_aspx.htm" />
+    <Content Include="docs\CheckOut_aspx_cs.htm" />
+    <Content Include="docs\Components_CustomersDB_cs.htm" />
+    <Content Include="docs\Components_OrdersDB_cs.htm" />
+    <Content Include="docs\Components_ProductsDB_cs.htm" />
+    <Content Include="docs\Components_ReviewsDB_cs.htm" />
+    <Content Include="docs\Components_Security_cs.htm" />
+    <Content Include="docs\Components_ShoppingCartDb_cs.htm" />
+    <Content Include="docs\CustomerAdd.htm" />
+    <Content Include="docs\CustomerAlsoBought.htm" />
+    <Content Include="docs\CustomerDetail.htm" />
+    <Content Include="docs\CustomerLogin.htm" />
+    <Content Include="docs\DefaultPage.htm" />
+    <Content Include="docs\Default_aspx.htm" />
+    <Content Include="docs\Default_aspx_cs.htm" />
+    <Content Include="docs\Docs.htm" />
+    <Content Include="docs\ErrorPage.htm" />
+    <Content Include="docs\errorpage_aspx.htm" />
+    <Content Include="docs\ErrorPage_aspx_cs.htm" />
+    <Content Include="docs\Global_asax_cs.htm" />
+    <Content Include="docs\header.htm" />
+    <Content Include="docs\images\1x1.gif" />
+    <Content Include="docs\images\Categories.GIF" />
+    <Content Include="docs\images\code-behind.gif" />
+    <Content Include="docs\images\Customers.GIF" />
+    <Content Include="docs\images\designerverbs.gif" />
+    <Content Include="docs\images\ERD-big.GIF" />
+    <Content Include="docs\images\erd.GIF" />
+    <Content Include="docs\images\OrderDetails.GIF" />
+    <Content Include="docs\images\Orders.GIF" />
+    <Content Include="docs\images\Products.GIF" />
+    <Content Include="docs\images\Reviews.GIF" />
+    <Content Include="docs\images\ShoppingCart.GIF" />
+    <Content Include="docs\images\sitebkgrd.gif" />
+    <Content Include="docs\InstantOrder.htm" />
+    <Content Include="docs\instantorder_asmx.htm" />
+    <Content Include="docs\InstantOrder_asmx_cs.htm" />
+    <Content Include="docs\LoginPage.htm" />
+    <Content Include="docs\Login_aspx.htm" />
+    <Content Include="docs\Login_aspx_cs.htm" />
+    <Content Include="docs\menu.htm" />
+    <Content Include="docs\OrderDetailsPage.htm" />
+    <Content Include="docs\OrderDetails_aspx.htm" />
+    <Content Include="docs\OrderDetails_aspx_cs.htm" />
+    <Content Include="docs\OrderListPage.htm" />
+    <Content Include="docs\OrderList_aspx.htm" />
+    <Content Include="docs\OrderList_aspx_cs.htm" />
+    <Content Include="docs\OrdersAdd.htm" />
+    <Content Include="docs\OrdersDetail.htm" />
+    <Content Include="docs\OrdersList.htm" />
+    <Content Include="docs\popularitems.htm" />
+    <Content Include="docs\ProductCategoryList.htm" />
+    <Content Include="docs\ProductDetail.htm" />
+    <Content Include="docs\ProductDetailsPage.htm" />
+    <Content Include="docs\ProductDetails_aspx.htm" />
+    <Content Include="docs\ProductDetails_aspx_cs.htm" />
+    <Content Include="docs\ProductsByCategory.htm" />
+    <Content Include="docs\ProductSearch.htm" />
+    <Content Include="docs\ProductsListPage.htm" />
+    <Content Include="docs\ProductsList_aspx.htm" />
+    <Content Include="docs\ProductsList_aspx_cs.htm" />
+    <Content Include="docs\ProductsMostPopular.htm" />
+    <Content Include="docs\RegisterPage.htm" />
+    <Content Include="docs\Register_aspx.htm" />
+    <Content Include="docs\Register_aspx_cs.htm" />
+    <Content Include="docs\ReviewAddPage.htm" />
+    <Content Include="docs\ReviewAdd_aspx.htm" />
+    <Content Include="docs\ReviewAdd_aspx_cs.htm" />
+    <Content Include="docs\reviewlistpage.htm" />
+    <Content Include="docs\ReviewsAdd.htm" />
+    <Content Include="docs\ReviewsList.htm" />
+    <Content Include="docs\SearchResultsPage.htm" />
+    <Content Include="docs\SearchResults_aspx.htm" />
+    <Content Include="docs\SearchResults_aspx_cs.htm" />
+    <Content Include="docs\ShoppingCartAddItem.htm" />
+    <Content Include="docs\ShoppingCartEmpty.htm" />
+    <Content Include="docs\ShoppingCartItemCount.htm" />
+    <Content Include="docs\ShoppingCartList.htm" />
+    <Content Include="docs\ShoppingCartMigrate.htm" />
+    <Content Include="docs\ShoppingCartPage.htm" />
+    <Content Include="docs\ShoppingCartRemoveAbandoned.htm" />
+    <Content Include="docs\ShoppingCartRemoveItem.htm" />
+    <Content Include="docs\ShoppingCartTotal.htm" />
+    <Content Include="docs\ShoppingCartUpdate.htm" />
+    <Content Include="docs\ShoppingCart_aspx.htm" />
+    <Content Include="docs\ShoppingCart_aspx_cs.htm" />
+    <Content Include="docs\style.css" />
+    <Content Include="docs\UserControls.htm" />
+    <Content Include="docs\visualstudio_project_notes.htm" />
+    <Content Include="docs\Web_Config.htm" />
+    <Content Include="docs\_alsobought_ascx.htm" />
+    <Content Include="docs\_AlsoBought_ascx_cs.htm" />
+    <Content Include="docs\_header_ascx.htm" />
+    <Content Include="docs\_Header_ascx_cs.htm" />
+    <Content Include="docs\_Menu_ascx.htm" />
+    <Content Include="docs\_Menu_ascx_cs.htm" />
+    <Content Include="docs\_popularitems_ascx.htm" />
+    <Content Include="docs\_PopularItems_ascx_cs.htm" />
+    <Content Include="docs\_ReviewList_ascx.htm" />
+    <Content Include="docs\_ReviewList_ascx_cs.htm" />
+    <Content Include="ErrorPage.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="images\1x1.gif" />
+    <Content Include="images\account.gif" />
+    <Content Include="images\add_to_cart.gif" />
+    <Content Include="images\arrowbutton.gif" />
+    <Content Include="images\cart.gif" />
+    <Content Include="images\final_checkout.gif" />
+    <Content Include="images\grid_background.gif" />
+    <Content Include="images\help_bkgrd.gif" />
+    <Content Include="images\logo.gif" />
+    <Content Include="images\modernliving.gif" />
+    <Content Include="images\modernliving_bkgrd.gif" />
+    <Content Include="images\most_secretive_place.gif" />
+    <Content Include="images\register.gif" />
+    <Content Include="images\reviewrating1.gif" />
+    <Content Include="images\reviewrating2.gif" />
+    <Content Include="images\reviewrating3.gif" />
+    <Content Include="images\reviewrating4.gif" />
+    <Content Include="images\reviewrating5.gif" />
+    <Content Include="images\review_this_product.gif" />
+    <Content Include="images\search.gif" />
+    <Content Include="images\services.gif" />
+    <Content Include="images\sign_in.gif" />
+    <Content Include="images\sign_in_now.gif" />
+    <Content Include="images\sitebkgrd.gif" />
+    <Content Include="images\sitebkgrdnogray.GIF" />
+    <Content Include="images\submit.gif" />
+    <Content Include="images\target.gif" />
+    <Content Include="images\update_cart.gif" />
+    <Content Include="InstantOrder.asmx" />
+    <Content Include="Login.aspx" />
+    <Content Include="OrderDetails.aspx" />
+    <Content Include="OrderList.aspx" />
+    <Content Include="ProductDetails.aspx" />
+    <Content Include="ProductImages\image.gif" />
+    <Content Include="ProductImages\thumbs\image.gif" />
+    <Content Include="ProductsList.aspx" />
+    <Content Include="Register.aspx" />
+    <Content Include="ReviewAdd.aspx" />
+    <Content Include="SearchResults.aspx" />
+    <Content Include="ShoppingCart.aspx" />
+    <Content Include="SourceViewer\1x1.gif" />
+    <Content Include="SourceViewer\grid_background.gif" />
+    <Content Include="SourceViewer\srcview.aspx" />
+    <Content Include="SourceViewer\style.css" />
+    <Content Include="SourceViewer\tabview.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="_AlsoBought.ascx" />
+    <Content Include="_Header.ascx" />
+    <Content Include="_Menu.ascx" />
+    <Content Include="_PopularItems.ascx" />
+    <Content Include="_ReviewList.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddToCart.aspx.cs">
+      <DependentUpon>AddToCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AzureFeatures\IBuySpyFeatures.cs" />
+    <Compile Include="CheckOut.aspx.cs">
+      <DependentUpon>CheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\CustomersDB.cs" />
+    <Compile Include="Components\DataConnection.cs" />
+    <Compile Include="Components\OrdersDB.cs" />
+    <Compile Include="Components\ProductsDB.cs" />
+    <Compile Include="Components\ReviewsDB.cs" />
+    <Compile Include="Components\Security.cs" />
+    <Compile Include="Components\ShoppingCartDb.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilterConfig.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="InstantOrder.asmx.cs">
+      <DependentUpon>InstantOrder.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainLayout.Master.cs">
+      <DependentUpon>MainLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainLayout.Master.designer.cs">
+      <DependentUpon>MainLayout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderList.aspx.cs">
+      <DependentUpon>OrderList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductDetails.aspx.cs">
+      <DependentUpon>ProductDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductsList.aspx.cs">
+      <DependentUpon>ProductsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReviewAdd.aspx.cs">
+      <DependentUpon>ReviewAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchResults.aspx.cs">
+      <DependentUpon>SearchResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchResults2.aspx.cs">
+      <DependentUpon>SearchResults2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchResults2.aspx.designer.cs">
+      <DependentUpon>SearchResults2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCart.aspx.cs">
+      <DependentUpon>ShoppingCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchLayout.master.cs">
+      <DependentUpon>SearchLayout.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchLayout.master.designer.cs">
+      <DependentUpon>SearchLayout.master</DependentUpon>
+    </Compile>
+    <Compile Include="SplashLayout.master.cs">
+      <DependentUpon>SplashLayout.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SplashLayout.master.designer.cs">
+      <DependentUpon>SplashLayout.master</DependentUpon>
+    </Compile>
+    <Compile Include="_AlsoBought.ascx.cs">
+      <DependentUpon>_AlsoBought.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Header.ascx.cs">
+      <DependentUpon>_Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Menu.ascx.cs">
+      <DependentUpon>_Menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_PopularItems.ascx.cs">
+      <DependentUpon>_PopularItems.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_ReviewList.ascx.cs">
+      <DependentUpon>_ReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AddToCart.aspx.resx">
+      <DependentUpon>AddToCart.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckOut.aspx.resx">
+      <DependentUpon>CheckOut.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Default.aspx.resx">
+      <DependentUpon>Default.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorPage.aspx.resx">
+      <DependentUpon>ErrorPage.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Global.asax.resx">
+      <DependentUpon>Global.asax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InstantOrder.asmx.resx">
+      <DependentUpon>InstantOrder.asmx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="licenses.licx" />
+    <EmbeddedResource Include="Login.aspx.resx">
+      <DependentUpon>Login.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderDetails.aspx.resx">
+      <DependentUpon>OrderDetails.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderList.aspx.resx">
+      <DependentUpon>OrderList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductDetails.aspx.resx">
+      <DependentUpon>ProductDetails.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductsList.aspx.resx">
+      <DependentUpon>ProductsList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Register.aspx.resx">
+      <DependentUpon>Register.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReviewAdd.aspx.resx">
+      <DependentUpon>ReviewAdd.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchResults.aspx.resx">
+      <DependentUpon>SearchResults.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShoppingCart.aspx.resx">
+      <DependentUpon>ShoppingCart.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_AlsoBought.ascx.resx">
+      <DependentUpon>_AlsoBought.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Header.ascx.resx">
+      <DependentUpon>_Header.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Menu.ascx.resx">
+      <DependentUpon>_Menu.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PopularItems.ascx.resx">
+      <DependentUpon>_PopularItems.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_ReviewList.ascx.resx">
+      <DependentUpon>_ReviewList.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Start\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IBuySpyCommon\IBuySpyCommon.csproj">
+      <Project>{13478186-FD11-4BDD-B619-D4DC9545BE64}</Project>
+      <Name>IBuySpyCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51881</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51881/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.12.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.12.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.12.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.12.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.12.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.12.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.Web.2.12.0\build\Microsoft.ApplicationInsights.Web.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.Web.2.12.0\build\Microsoft.ApplicationInsights.Web.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.12.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.12.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.12.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.Web.2.12.0\build\Microsoft.ApplicationInsights.Web.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Web.2.12.0\build\Microsoft.ApplicationInsights.Web.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,40 @@
+﻿@model List<IBuySpyCommon.HealthCheckItem>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>HealthCheckItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => item.Name)
+            </dt>
+            <dd>
+                <h2>@Html.DisplayFor(model => item.Name)</h2>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.Ok)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Ok)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.StatusMessage)
+            </dt>
+
+            <dd>
+                <p>@Html.DisplayFor(model => item.StatusMessage)</p>
+            </dd>
+        }
+    </dl>
+    
+</div>

@@ -1,0 +1,110 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.Security;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> <font color= "blue">class</font> Login : System.Web.UI.Page {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.Label Message;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.TextBox email;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RequiredFieldValidator emailRequired;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RegularExpressionValidator emailValid;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.TextBox password;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.RequiredFieldValidator passwordRequired;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.CheckBox RememberLogin;
+        <font color= "blue">protected</font> System.Web.UI.WebControls.ImageButton LoginBtn;
+    
+        <font color= "blue">public</font> Login() {
+            Page.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The LoginBtn_Click event is used on this page to</font>
+        <font color= "green">// authenticate a customer's supplied username/password</font>
+        <font color= "green">// credentials against a database.</font>
+        <font color= "green">//</font>
+        <font color= "green">// If the supplied username/password are valid, then</font>
+        <font color= "green">// the event handler adds a cookie to the client</font>
+        <font color= "green">// (so that we can personalize the home page's welcome</font>
+        <font color= "green">// message), migrates any items stored in the user's</font>
+        <font color= "green">// temporary (non-persistent) shopping cart to their</font>
+        <font color= "green">// permanent customer account, and then redirects the browser</font>
+        <font color= "green">// back to the originating page.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> LoginBtn_Click(object sender, System.Web.UI.ImageClickEventArgs e) {
+
+            <font color= "green">// Only attempt a login if all form fields on the page are valid</font>
+            <font color= "blue">if</font> (Page.IsValid == <font color= "blue">true</font>) {
+
+                <font color= "green">// Save old ShoppingCartID</font>
+                ASPNET.StarterKit.Commerce.ShoppingCartDB shoppingCart = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ShoppingCartDB();
+                String tempCartID = shoppingCart.GetShoppingCartId();
+
+                <font color= "green">// Attempt to Validate User Credentials using CustomersDB</font>
+                ASPNET.StarterKit.Commerce.CustomersDB accountSystem = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.CustomersDB();
+                String customerId = accountSystem.Login(email.Text, ASPNET.StarterKit.Commerce.Components.Security.Encrypt(password.Text));
+
+                <font color= "blue">if</font> (customerId != <font color= "blue">null</font>) {
+
+                    <font color= "green">// Migrate any existing shopping cart items into the permanent shopping cart</font>
+                    shoppingCart.MigrateCart(tempCartID, customerId);
+
+                    <font color= "green">// Lookup the customer's full account details</font>
+                    ASPNET.StarterKit.Commerce.CustomerDetails customerDetails = accountSystem.GetCustomerDetails(customerId);
+
+                    <font color= "green">// Store the user's fullname in a cookie for personalization purposes</font>
+                    Response.Cookies[&quot;ASPNETCommerce_FullName&quot;].Value = customerDetails.FullName;
+
+                    <font color= "green">// Make the cookie persistent only if the user selects &quot;persistent&quot; login checkbox</font>
+                    <font color= "blue">if</font> (RememberLogin.Checked == <font color= "blue">true</font>) {
+                        Response.Cookies[&quot;ASPNETCommerce_FullName&quot;].Expires = DateTime.Now.AddMonths(1);
+                    }
+
+                    <font color= "green">// Redirect browser back to originating page</font>
+                    FormsAuthentication.RedirectFromLoginPage(customerId, RememberLogin.Checked);
+                }
+                <font color= "blue">else</font> {
+                    Message.Text = &quot;Login Failed!&quot;;
+                }
+            }
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+            <font color= "green">// Put user code to initialize the page here</font>
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {    
+            <font color= "blue">this</font>.LoginBtn.Click += <font color= "blue">new</font> System.Web.UI.ImageClickEventHandler(<font color= "blue">this</font>.LoginBtn_Click);
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+
+    }
+}
+</pre></font>

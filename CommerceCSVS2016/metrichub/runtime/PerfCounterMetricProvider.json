@@ -1,0 +1,12 @@
+[
+  {
+    "CategoryName": "Processor",
+    "CounterName": "% Processor Time",
+    "InstanceName": "_Total"
+  },
+  {
+    "CategoryName": "Process",
+    "CounterName": "Private Bytes",
+    "InstanceName": "_Total"
+  }
+]

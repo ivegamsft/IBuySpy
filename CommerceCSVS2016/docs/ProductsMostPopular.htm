@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<title>ASP.NET Commerce Starter Kit</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<h1>"ProductsMostPopular" Stored Procedure</h1>
+		<b>Description:</b>
+		<P>This stored procedure returns the top 5 most purchased items in the Commerce 
+			Starter Kit application. It is the engine behind the "Most popular items" user 
+			control.</P>
+		<b>Definition:</b>
+		<pre>
+
+    
+	CREATE Procedure CMRC_ProductsMostPopular
+
+	AS
+
+	SELECT TOP 5 
+		CMRC_OrderDetails.ProductID, 
+		SUM(CMRC_OrderDetails.Quantity) as TotalNum, 
+		CMRC_Products.ModelName
+	    
+	FROM    
+		CMRC_OrderDetails
+	INNER JOIN CMRC_Products ON CMRC_OrderDetails.ProductID = CMRC_Products.ProductID
+	  
+	GROUP BY 
+		CMRC_OrderDetails.ProductID, 
+		CMRC_Products.ModelName
+	    
+	ORDER BY 
+		TotalNum DESC
+        </pre>
+		<b>Database Tables Used: </b>
+		<P><i>OrderDetails:</i>
+		&nbsp;The OrderDetails table contains detailed product information for each 
+		order in the system. For each product in an order, an entry is made into the 
+		OrderDetails table containing the ProductID, Quantity and current UnitCost of 
+		the item. There is a many to one relationship between OrderDetails table and 
+		the Orders table. Note the primary key in the table is both OrderID and 
+		ProductID (since those two columns are the minimum required to guarantee 
+		uniqueness of a record).
+		<p>
+			<img src="1x1.gif" width="25"> <IMG src="../docs/images/OrderDetails.gif">
+		<P><i>Products:</i>
+		&nbsp;The Products table contains all of the information about all of the 
+		products on the Commerce Starter Kit web site. It's primary key is the 
+		ProductID identity field. Note that product descriptions are limited to 3800 
+		characters.
+		<p>
+			<img src="1x1.gif" width="25"> <IMG src="../docs/images/products.gif"></p>
+	</body>
+</html>

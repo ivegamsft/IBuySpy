@@ -1,0 +1,7 @@
+[
+  {
+    "DirectoryPath": "C:\\inetpub\\logs\\LogFiles\\",
+    "Filter": "*.log",
+    "IncludeSubdirectories": true
+  }
+]

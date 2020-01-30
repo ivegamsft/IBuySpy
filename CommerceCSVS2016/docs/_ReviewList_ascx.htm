@@ -1,0 +1,51 @@
+<font size="3">
+<pre>
+<font color=blue><b><font color= "blue">&lt;%</font>@ Control Language=&quot;c#&quot; CodeBehind=&quot;_ReviewList.ascx.cs&quot; AutoEventWireup=&quot;false&quot; Inherits=&quot;ASPNET.StarterKit.Commerce.C_ReviewList&quot; <font color= "blue">%&gt;</font></b></font>
+
+<font color= "blue">&lt;%</font>--
+
+    This user control display a list of review for a specific product.
+
+--<font color= "blue">%&gt;</font>
+
+<font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+<font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+
+<font color= "blue">&lt;</font><font color="maroon">table</font> cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; width=&quot;100%&quot; border=&quot;0&quot;<font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font> class=&quot;SubContentHead&quot;<font color= "blue">&gt;</font>
+            &amp;nbsp;Reviews
+            <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+            &amp;nbsp;
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color=blue><b>asp:Hyperlink id=&quot;AddReview&quot; runat=&quot;server&quot;<font color= "blue">&gt;</font></b></font>
+                <font color= "blue">&lt;</font><font color="maroon">img</font> align=&quot;absbottom&quot; src=&quot;images/review_this_product.gif&quot; border=&quot;0&quot;<font color= "blue">&gt;</font>
+            <font color= "blue">&lt;/</font><font color=blue><b>asp:Hyperlink<font color= "blue">&gt;</font></b></font>
+            <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color=blue><b>asp:DataList ID=&quot;MyList&quot; runat=&quot;server&quot; width=&quot;500&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;<font color= "blue">&gt;</font></b></font>
+                <font color= "blue">&lt;</font><font color="maroon">ItemTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color=blue><b>asp:Label class=&quot;NormalBold&quot; Text='<font color= "blue">&lt;%</font>#<font color=red><b> DataBinder.Eval(Container.DataItem, &quot;CustomerName&quot;) </b></font><font color= "blue">%&gt;</font>' runat=&quot;server&quot; <font color= "blue">/&gt;</font></b></font>
+                    <font color= "blue">&lt;</font><font color="maroon">span</font> class=&quot;Normal&quot;<font color= "blue">&gt;</font>says... <font color= "blue">&lt;/</font><font color="maroon">span</font><font color= "blue">&gt;</font><font color= "blue">&lt;</font><font color="maroon">img</font> src='images/ReviewRating<font color= "blue">&lt;%</font>#<font color=red><b> DataBinder.Eval(Container.DataItem, &quot;Rating&quot;) </b></font><font color= "blue">%&gt;</font>.gif'<font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color=blue><b>asp:Label class=&quot;Normal&quot; Text='<font color= "blue">&lt;%</font>#<font color=red><b> DataBinder.Eval(Container.DataItem, &quot;Comments&quot;) </b></font><font color= "blue">%&gt;</font>' runat=&quot;server&quot; <font color= "blue">/&gt;</font></b></font>
+                <font color= "blue">&lt;/</font><font color="maroon">ItemTemplate</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">SeparatorTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;/</font><font color="maroon">SeparatorTemplate</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;/</font><font color=blue><b>asp:DataList<font color= "blue">&gt;</font></b></font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+<font color= "blue">&lt;/</font><font color="maroon">table</font><font color= "blue">&gt;</font>
+</pre></font>

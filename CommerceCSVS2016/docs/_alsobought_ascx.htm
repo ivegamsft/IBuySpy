@@ -1,0 +1,39 @@
+<font size="3">
+<pre>
+<font color=blue><b><font color= "blue">&lt;%</font>@ Control Language=&quot;c#&quot; CodeBehind=&quot;_AlsoBought.ascx.cs&quot; AutoEventWireup=&quot;false&quot; Inherits=&quot;ASPNET.StarterKit.Commerce.C_AlsoBought&quot; <font color= "blue">%&gt;</font></b></font>
+<font color= "blue">&lt;%</font>--
+        This user controls lists other products that
+        customers who purchased a product &quot;also bought&quot;.
+--<font color= "blue">%&gt;</font>
+<font color= "blue">&lt;</font><font color="maroon">table</font> width=&quot;95%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;<font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color=blue><b>asp:Repeater ID=&quot;alsoBoughtList&quot; runat=&quot;server&quot;<font color= "blue">&gt;</font></b></font>
+                <font color= "blue">&lt;</font><font color="maroon">HeaderTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+                        <font color= "blue">&lt;</font><font color="maroon">td</font> class=&quot;MostPopularHead&quot;<font color= "blue">&gt;</font>
+                            &amp;nbsp;Customers who bought this also bought
+                        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;/</font><font color="maroon">HeaderTemplate</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">ItemTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+                        <font color= "blue">&lt;</font><font color="maroon">td</font> bgcolor=&quot;#d3d3d3&quot;<font color= "blue">&gt;</font>
+                            &amp;nbsp;
+                            <font color= "blue">&lt;</font><font color=blue><b>asp:HyperLink class=&quot;MostPopularItemText&quot; NavigateUrl='<font color= "blue">&lt;%</font>#<font color=red><b> &quot;ProductDetails.aspx?ProductID=&quot; + DataBinder.Eval(Container.DataItem, &quot;ProductID&quot;)<font color= "blue">%&gt;</font>' Text='<font color= "blue">&lt;%</font>#DataBinder.Eval(Container.DataItem, &quot;ModelName&quot;)</b></font><font color= "blue">%&gt;</font>' runat=&quot;server&quot; <font color= "blue">/&gt;</font></b></font>
+                            <font color= "blue">&lt;</font><font color="maroon">br</font><font color= "blue">&gt;</font>
+                        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;/</font><font color="maroon">ItemTemplate</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">FooterTemplate</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+                        <font color= "blue">&lt;</font><font color="maroon">td</font> bgcolor=&quot;#d3d3d3&quot;<font color= "blue">&gt;</font>
+                            &amp;nbsp;
+                        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+                    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;/</font><font color="maroon">FooterTemplate</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;/</font><font color=blue><b>asp:Repeater<font color= "blue">&gt;</font></b></font>
+        <font color= "blue">&lt;/</font><font color="maroon">td</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">tr</font><font color= "blue">&gt;</font>
+<font color= "blue">&lt;/</font><font color="maroon">table</font><font color= "blue">&gt;</font>
+</pre></font>

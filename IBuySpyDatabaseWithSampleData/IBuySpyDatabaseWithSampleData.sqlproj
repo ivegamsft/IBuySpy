@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>IBuySpyDatabaseWithSampleData</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{b88430c9-3745-45ab-9b00-39489f614eb4}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>IBuySpyDatabaseWithSampleData</RootNamespace>
+    <AssemblyName>IBuySpyDatabaseWithSampleData</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetFrameworkProfile />
+    <PermissionSet>UNSAFE</PermissionSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Snapshots" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\CMRC_ShoppingCart.sql" />
+    <Build Include="dbo\Tables\CMRC_Reviews.sql" />
+    <Build Include="dbo\Tables\CMRC_Products.sql" />
+    <Build Include="dbo\Tables\CMRC_Orders.sql" />
+    <Build Include="dbo\Tables\CMRC_OrderDetails.sql" />
+    <Build Include="dbo\Tables\CMRC_Customers.sql" />
+    <Build Include="dbo\Tables\CMRC_Categories.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartTotal.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartRemoveItem.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartRemoveAbandoned.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartMigrate.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartList.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartItemCount.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartEmpty.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ShoppingCartAddItem.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ReviewsList.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\CMRC_ReviewsAdd.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\CMRC_ProductsMostPopular.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ProductSearch.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ProductsByCategory.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ProductDetail.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_ProductCategoryList.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_OrdersList.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\CMRC_OrdersDetail.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_OrdersAdd.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_CustomerLogin.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_CustomerDetail.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_CustomerAlsoBought.sql" />
+    <Build Include="dbo\Stored Procedures\CMRC_CustomerAdd.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\SampleData.Post.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\CleanDatabase.Pre.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\IBuySpyDatabaseWithSampleData_20160801_13-50-47.dacpac" />
+  </ItemGroup>
+</Project>

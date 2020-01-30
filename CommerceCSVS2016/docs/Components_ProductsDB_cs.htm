@@ -1,0 +1,286 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Configuration;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Data.SqlClient;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// ProductDetails Class</font>
+    <font color= "green">//</font>
+    <font color= "green">// A simple data class that encapsulates details about</font>
+    <font color= "green">// a particular product inside the Commerce Starter Kit Product</font>
+    <font color= "green">// database.</font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************</font>
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ProductDetails {
+
+        <font color= "blue">public</font> String  ModelNumber;
+        <font color= "blue">public</font> String  ModelName;
+        <font color= "blue">public</font> String  ProductImage;
+        <font color= "blue">public</font> decimal UnitCost;
+        <font color= "blue">public</font> String  Description;
+    }
+
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// ProductsDB Class</font>
+    <font color= "green">//</font>
+    <font color= "green">// Business/Data Logic Class that encapsulates all data</font>
+    <font color= "green">// logic necessary to query products within</font>
+    <font color= "green">// the Commerce Starter Kit Products database.</font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************</font>
+
+    <font color= "blue">public</font> <font color= "blue">class</font> ProductsDB {
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ProductsDB.GetProductCategories() Method &lt;a name=&quot;GetProductCategories&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetProductCategories method returns a DataReader that exposes all </font>
+        <font color= "green">// product categories (and their CategoryIDs) within the Commerce Starter Kit Products   </font>
+        <font color= "green">// database.  The SQLDataReaderResult struct also returns the</font>
+        <font color= "green">// SQL connection, which must be explicitly closed after the</font>
+        <font color= "green">// data from the DataReader is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ProductCategoryList.htm&quot; style=&quot;color:green&quot;&gt;ProductCategoryList Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader GetProductCategories() 
+        {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ProductCategoryList&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ProductsDB.GetProducts() Method &lt;a name=&quot;GetProducts&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetProducts method returns a struct containing a forward-only,</font>
+        <font color= "green">// read-only DataReader. This displays all products within a specified</font>
+        <font color= "green">// product category.  The SQLDataReaderResult struct also returns the</font>
+        <font color= "green">// SQL connection, which must be explicitly closed after the</font>
+        <font color= "green">// data from the DataReader is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ProductsByCategory.htm&quot; style=&quot;color:green&quot;&gt;ProductsByCategory Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader GetProducts(<font color= "blue">int</font> categoryID) {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ProductsByCategory&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterCategoryID = <font color= "blue">new</font> SqlParameter(&quot;@CategoryID&quot;, SqlDbType.Int, 4);
+            parameterCategoryID.Value = categoryID;
+            myCommand.Parameters.Add(parameterCategoryID);
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+            
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ProductsDB.GetProductDetails() Method &lt;a name=&quot;GetProductDetails&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetProductDetails method returns a ProductDetails</font>
+        <font color= "green">// struct containing specific details about a specified</font>
+        <font color= "green">// product within the Commerce Starter Kit Products Database.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ProductDetail.htm&quot; style=&quot;color:green&quot;&gt;ProductDetail Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> ProductDetails GetProductDetails(<font color= "blue">int</font> productID) {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ProductDetail&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterProductID = <font color= "blue">new</font> SqlParameter(&quot;@ProductID&quot;, SqlDbType.Int, 4);
+            parameterProductID.Value = productID;
+            myCommand.Parameters.Add(parameterProductID);
+
+            SqlParameter parameterUnitCost = <font color= "blue">new</font> SqlParameter(&quot;@UnitCost&quot;, SqlDbType.Money, 8);
+            parameterUnitCost.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterUnitCost);
+
+            SqlParameter parameterModelNumber = <font color= "blue">new</font> SqlParameter(&quot;@ModelNumber&quot;, SqlDbType.NVarChar, 50);
+            parameterModelNumber.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterModelNumber);
+
+            SqlParameter parameterModelName = <font color= "blue">new</font> SqlParameter(&quot;@ModelName&quot;, SqlDbType.NVarChar, 50);
+            parameterModelName.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterModelName);
+
+            SqlParameter parameterProductImage = <font color= "blue">new</font> SqlParameter(&quot;@ProductImage&quot;, SqlDbType.NVarChar, 50);
+            parameterProductImage.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterProductImage);
+
+            SqlParameter parameterDescription = <font color= "blue">new</font> SqlParameter(&quot;@Description&quot;, SqlDbType.NVarChar, 3800);
+            parameterDescription.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterDescription);
+
+            <font color= "green">// Open the connection and execute the Command</font>
+            myConnection.Open();
+            myCommand.ExecuteNonQuery();
+            myConnection.Close();
+
+            <font color= "green">// Create and Populate ProductDetails Struct using</font>
+            <font color= "green">// Output Params from the SPROC</font>
+            ProductDetails myProductDetails = <font color= "blue">new</font> ProductDetails();
+
+            myProductDetails.ModelNumber = (<font color= "blue">string</font>)parameterModelNumber.Value;
+            myProductDetails.ModelName = (<font color= "blue">string</font>)parameterModelName.Value;
+            myProductDetails.ProductImage = ((<font color= "blue">string</font>)parameterProductImage.Value).Trim();
+            myProductDetails.UnitCost = (decimal)parameterUnitCost.Value;
+            myProductDetails.Description = ((<font color= "blue">string</font>)parameterDescription.Value).Trim();
+
+            <font color= "blue">return</font> myProductDetails;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ProductsDB.GetProductsAlsoPurchased() Method &lt;a name=&quot;GetProductsAlsoPurchased&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetPGetProductsAlsoPurchasedroducts method returns a struct containing</font>
+        <font color= "green">// a forward-only, read-only DataReader.  This displays a list of other products</font>
+        <font color= "green">// also purchased with a specified product  The SQLDataReaderResult struct also</font>
+        <font color= "green">// returns the SQL connection, which must be explicitly closed after the</font>
+        <font color= "green">// data from the DataReader is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;CustomerAlsoBought.htm&quot; style=&quot;color:green&quot;&gt;CustomerAlsoBought Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader GetProductsAlsoPurchased(<font color= "blue">int</font> productID) {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_CustomerAlsoBought&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterProductID = <font color= "blue">new</font> SqlParameter(&quot;@ProductID&quot;, SqlDbType.Int, 4);
+            parameterProductID.Value = productID;
+            myCommand.Parameters.Add(parameterProductID);
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ProductsDB.GetMostPopularProductsOfWeek() Method &lt;a name=&quot;GetMostPopularProductsOfWeek&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetMostPopularProductsOfWeek method returns a struct containing a </font>
+        <font color= "green">// forward-only, read-only DataReader containing the most popular products </font>
+        <font color= "green">// of the week within the Commerce Starter Kit Products database.  </font>
+        <font color= "green">// The SQLDataReaderResult struct also returns the</font>
+        <font color= "green">// SQL connection, which must be explicitly closed after the</font>
+        <font color= "green">// data from the DataReader is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ProductsMostPopular.htm&quot; style=&quot;color:green&quot;&gt;ProductsMostPopular Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader GetMostPopularProductsOfWeek() {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ProductsMostPopular&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// ProductsDB.SearchProductDescriptions() Method &lt;a name=&quot;SearchProductDescriptions&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The SearchProductDescriptions method returns a struct containing</font>
+        <font color= "green">// a forward-only, read-only DataReader.  This displays a list of all</font>
+        <font color= "green">// products whose name and/or description contains the specified search</font>
+        <font color= "green">// string. The SQLDataReaderResult struct also returns the SQL connection,</font>
+        <font color= "green">// which must be explicitly closed after the data from the DataReader</font>
+        <font color= "green">// is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;ProductSearch.htm&quot; style=&quot;color:green&quot;&gt;ProductSearch Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader SearchProductDescriptions(<font color= "blue">string</font> searchString) {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_ProductSearch&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterSearch = <font color= "blue">new</font> SqlParameter(&quot;@Search&quot;, SqlDbType.NVarChar, 255);
+            parameterSearch.Value = searchString;
+            myCommand.Parameters.Add(parameterSearch);
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+    }
+}
+</pre></font>

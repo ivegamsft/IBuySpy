@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SearchLayout.master.cs" Inherits="ASPNET.StarterKit.Commerce.SearchLayout" %>
+
+<%@ Register TagPrefix="ASPNETCommerce" TagName="Header" Src="_Header.ascx" %>
+
+<!DOCTYPE html>
+
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
+    <title></title>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="content/bootstrap.css" />
+    </asp:ContentPlaceHolder>
+    <!-- 
+    To collect end-user usage analytics about your application, 
+    insert the following script into each page you want to track.
+    Place this code immediately before the closing </head> tag,
+    and before any other scripts. Your first data will appear 
+    automatically in just a few seconds.
+    -->
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (config) {
+            function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f; s.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(s); try { t.cookie = u.cookie } catch (h) { } for (t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; i.length;)r("track" + i.pop()); return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking || (i = "onerror", r("_" + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t["_" + i](config, r, u, e, o), s }), t
+        }({
+            instrumentationKey:"<%= AppInsightsKey %>"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+<body id="bodyElement" runat="server">
+    <form id="form1" runat="server">
+        <ASPNETCommerce:Header ID="Header2" runat="server" />
+        <!-- Page Content -->
+        <div class="container">
+            <div class="page-header" id="banner">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h1>Shhhhhhh</h1>
+                        <p class="lead">The Most Secretive Place to shop on the Internet</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <asp:ContentPlaceHolder ID="Main" runat="server" Visible="false">
+                    </asp:ContentPlaceHolder>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <asp:ContentPlaceHolder ID="MainBody" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+                <footer>
+                    <asp:ContentPlaceHolder ID="Footer" runat="server"></asp:ContentPlaceHolder>
+                </footer>
+                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <!-- Include all compiled plugins (below), or include individual files as needed -->
+                <script src="scripts/bootstrap.min.js"></script>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

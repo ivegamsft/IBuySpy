@@ -1,0 +1,150 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseStorageName": {
+      "value": "ibs2016"
+    },
+    "wfe2pipDnsName": {
+      "value": "ibswfe1"
+    },
+    "wfe2pip2DnsName": {
+      "value": "ibswfe2"
+    },
+    "sql1pipDnsName": {
+      "value": "ibssql1"
+    },
+    "loadBalancerName": {
+      "value": "ibslb1"
+    },
+    "virtualMachines_ibsSql1_adminPassword": {
+      "value": "Ibuyspy2016!"
+    },
+    "virtualMachines_ibsWfe1_adminPassword": {
+      "value": "Ibuyspy2016!"
+    },
+    "virtualMachines_ibWfe2_adminPassword": {
+      "value": "Ibuyspy2016!"
+    },
+    "availabilitySets_ibswfeAvailSet_name": {
+      "value": null
+    },
+    "virtualMachines_ibsSql1_name": {
+      "value": null
+    },
+    "virtualMachines_ibsWfe1_name": {
+      "value": null
+    },
+    "virtualMachines_ibWfe2_name": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadBalancer_name": {
+      "value": null
+    },
+    "networkInterfaces_ibssql1414_name": {
+      "value": null
+    },
+    "networkInterfaces_ibswfe195_name": {
+      "value": null
+    },
+    "networkInterfaces_ibswfe2922_name": {
+      "value": null
+    },
+    "networkInterfaces_ibwfe2591_name": {
+      "value": null
+    },
+    "networkInterfaces_wfe1187_name": {
+      "value": null
+    },
+    "networkSecurityGroups_ibsSql1_name": {
+      "value": null
+    },
+    "networkSecurityGroups_ibsWfe1_name": {
+      "value": null
+    },
+    "networkSecurityGroups_ibsWfe2_name": {
+      "value": null
+    },
+    "networkSecurityGroups_ibWfe2_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibsExternalPip_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibsLoadBalancerPip_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibsSql1_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibsWfe1Pip_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibsWfe2_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibWfe2_name": {
+      "value": null
+    },
+    "publicIPAddresses_wfe1Pip_name": {
+      "value": null
+    },
+    "trafficManagerProfiles_ibuyspy2016iaas_name": {
+      "value": null
+    },
+    "virtualNetworks_ibsVnet_name": {
+      "value": null
+    },
+    "storageAccounts_ibuyspy2016iaas6862_name": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadBalancer_id": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadBalancer_id_1": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadBalancer_id_2": {
+      "value": null
+    },
+    "workspaceId": {
+      "value": "78ee699f-7b3b-40f2-a331-4cd187ad943d"
+    },
+    "workspaceKey": {
+      "value": "YmKKO+HxD8pUUJ4mzdEj1IUIsNS1+G5FOHpgj0y4bFtIxvNCivVJHCBDJnHZdKpsD29Ewdjgoa/FkHgMDQCqUw=="
+    },
+    "loadBalancers_ibsLoadWFEBalancer_name": {
+      "value": null
+    },
+     "networkSecurityGroups_ibsDataNsg_name": {
+      "value": null
+    },
+    "networkSecurityGroups_ibsWfeNsg_name": {
+      "value": null
+    },
+    "publicIPAddresses_ibsLoadWFEBalancerPip2_name": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadWFEBalancer_id": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadWFEBalancer_id_1": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadWFEBalancer_id_2": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadWFEBalancer_id_3": {
+      "value": null
+    },
+    "loadBalancers_ibsLoadWFEBalancer_id_4": {
+      "value": null
+    },
+    "trafficManagerProfiles_ibuyspy2016iaas_targetResourceId": {
+      "value": null
+    },
+    "trafficManagerProfiles_ibuyspy2016iaas_targetResourceId_1": {
+      "value": null
+    }
+  }
+}

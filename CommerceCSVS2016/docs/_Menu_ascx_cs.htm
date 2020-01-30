@@ -1,0 +1,70 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Drawing;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Web.UI;
+<font color= "blue">using</font> System.Web.UI.WebControls;
+<font color= "blue">using</font> System.Web.UI.HtmlControls;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "blue">public</font> abstract <font color= "blue">class</font> C_Menu : System.Web.UI.UserControl {
+
+        <font color= "blue">protected</font> System.Web.UI.WebControls.DataList MyList;
+    
+        <font color= "blue">public</font> C_Menu() {
+            <font color= "blue">this</font>.Init += <font color= "blue">new</font> System.EventHandler(Page_Init);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Page_Load event on this page is used to obtain</font>
+        <font color= "green">// from a database a list of all product categories</font>
+        <font color= "green">// and databind it to an asp:datalist control.</font>
+        <font color= "green">//</font>
+        <font color= "green">// To optimize performance, this user control is output </font>
+        <font color= "green">// cached (varying based on the categoryId and selection</font>
+        <font color= "green">// passed through the querystring.    </font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Load(object sender, System.EventArgs e) {
+
+            <font color= "green">// Set the curent selection of list</font>
+            String selectionId = Request.Params[&quot;selection&quot;];
+
+            <font color= "blue">if</font> (selectionId != <font color= "blue">null</font>) {
+                MyList.SelectedIndex = Int32.Parse(selectionId);
+            }
+
+            <font color= "green">// Obtain list of menu categories and databind to list control</font>
+            ASPNET.StarterKit.Commerce.ProductsDB products = <font color= "blue">new</font> ASPNET.StarterKit.Commerce.ProductsDB();
+        
+            MyList.DataSource = products.GetProductCategories();
+            MyList.DataBind();      
+        }
+
+        <font color= "blue">private</font> <font color= "blue">void</font> Page_Init(object sender, EventArgs e) {
+            <font color= "green">//</font>
+            <font color= "green">// CODEGEN: This call is required by the ASP.NET Web Form Designer.</font>
+            <font color= "green">//</font>
+            InitializeComponent();
+        }
+
+        #region Web Form Designer generated code
+        <font color= "green">/// &lt;summary&gt;</font>
+        <font color= "green">/// Required method for Designer support - do not modify</font>
+        <font color= "green">/// the contents of this method with the code editor.</font>
+        <font color= "green">/// &lt;/summary&gt;</font>
+        <font color= "blue">private</font> <font color= "blue">void</font> InitializeComponent() {    
+            <font color= "blue">this</font>.Load += <font color= "blue">new</font> System.EventHandler(<font color= "blue">this</font>.Page_Load);
+
+        }
+        #endregion
+    }
+}
+</pre></font>

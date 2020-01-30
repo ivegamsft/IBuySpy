@@ -1,0 +1,816 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_ibsSql1_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_ibsWfe1_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_ibWfe2_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "availabilitySets_ibswfeAvailSet_name": {
+            "defaultValue": "ibswfeAvailSet",
+            "type": "String"
+        },
+        "virtualMachines_ibsSql1_name": {
+            "defaultValue": "ibsSql1",
+            "type": "String"
+        },
+        "virtualMachines_ibsWfe1_name": {
+            "defaultValue": "ibsWfe1",
+            "type": "String"
+        },
+        "virtualMachines_ibWfe2_name": {
+            "defaultValue": "ibWfe2",
+            "type": "String"
+        },
+        "loadBalancers_ibsLoadWFEBalancer_name": {
+            "defaultValue": "ibsLoadWFEBalancer",
+            "type": "String"
+        },
+        "networkInterfaces_ibssql1414_name": {
+            "defaultValue": "ibssql1414",
+            "type": "String"
+        },
+        "networkInterfaces_ibswfe195_name": {
+            "defaultValue": "ibswfe195",
+            "type": "String"
+        },
+        "networkInterfaces_ibswfe2922_name": {
+            "defaultValue": "ibswfe2922",
+            "type": "String"
+        },
+        "networkInterfaces_ibwfe2591_name": {
+            "defaultValue": "ibwfe2591",
+            "type": "String"
+        },
+        "networkInterfaces_wfe1187_name": {
+            "defaultValue": "wfe1187",
+            "type": "String"
+        },
+        "networkSecurityGroups_ibsDataNsg_name": {
+            "defaultValue": "ibsDataNsg",
+            "type": "String"
+        },
+        "networkSecurityGroups_ibsWfeNsg_name": {
+            "defaultValue": "ibsWfeNsg",
+            "type": "String"
+        },
+        "publicIPAddresses_ibsLoadWFEBalancerPip2_name": {
+            "defaultValue": "ibsLoadWFEBalancerPip2",
+            "type": "String"
+        },
+        "publicIPAddresses_ibsSql1_name": {
+            "defaultValue": "ibsSql1",
+            "type": "String"
+        },
+        "publicIPAddresses_ibsWfe1Pip_name": {
+            "defaultValue": "ibsWfe1Pip",
+            "type": "String"
+        },
+        "publicIPAddresses_ibsWfe2_name": {
+            "defaultValue": "ibsWfe2",
+            "type": "String"
+        },
+        "publicIPAddresses_ibWfe2_name": {
+            "defaultValue": "ibWfe2",
+            "type": "String"
+        },
+        "publicIPAddresses_wfe1Pip_name": {
+            "defaultValue": "wfe1Pip",
+            "type": "String"
+        },
+        "trafficManagerProfiles_ibuyspy2016iaas_name": {
+            "defaultValue": "ibuyspy2016iaas",
+            "type": "String"
+        },
+        "virtualNetworks_ibsVnet_name": {
+            "defaultValue": "ibsVnet",
+            "type": "String"
+        },
+        "storageAccounts_ibuyspy2016iaas6862_name": {
+            "defaultValue": "ibuyspy2016iaas6862",
+            "type": "String"
+        },
+        "loadBalancers_ibsLoadWFEBalancer_id": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/loadBalancers/ibsLoadWFEBalancer/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_ibsLoadWFEBalancer_id_1": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/loadBalancers/ibsLoadWFEBalancer/backendAddressPools/ibsLbBackEndPool",
+            "type": "String"
+        },
+        "loadBalancers_ibsLoadWFEBalancer_id_2": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/loadBalancers/ibsLoadWFEBalancer/probes/ibsHttpProbe",
+            "type": "String"
+        },
+        "loadBalancers_ibsLoadWFEBalancer_id_3": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/loadBalancers/ibsLoadWFEBalancer/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_ibsLoadWFEBalancer_id_4": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/loadBalancers/ibsLoadWFEBalancer/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "trafficManagerProfiles_ibuyspy2016iaas_targetResourceId": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/ibuyspy-cloud/providers/Microsoft.Web/sites/ibuyspywebappr4vkeawr3eprc",
+            "type": "String"
+        },
+        "trafficManagerProfiles_ibuyspy2016iaas_targetResourceId_1": {
+            "defaultValue": "/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/ibsExternalPip",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Compute/availabilitySets/ibswfeAvailSet'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_ibswfeAvailSet_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "centralus",
+            "tags": {},
+            "properties": {
+                "platformUpdateDomainCount": 2,
+                "platformFaultDomainCount": 2
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Compute/virtualMachines/ibsSql1'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_ibsSql1_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "centralus",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_A3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftSQLServer",
+                        "offer": "SQL2008R2SP3-WS2008R2SP1",
+                        "sku": "Standard",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_ibsSql1_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_ibuyspy2016iaas6862_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_ibsSql1_name'),'201671124247.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_ibsSql1_name')]",
+                    "adminUsername": "ivadmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_ibsSql1_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ibssql1414_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ibuyspy2016iaas6862_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ibssql1414_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Compute/virtualMachines/ibsWfe1'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_ibsWfe1_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "centralus",
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_ibswfeAvailSet_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_A1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2012-R2-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_ibsWfe1_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_ibuyspy2016iaas6862_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_ibsWfe1_name'),'201671125349.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_ibsWfe1_name')]",
+                    "adminUsername": "ivadmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_ibsWfe1_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ibswfe195_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_ibswfeAvailSet_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ibuyspy2016iaas6862_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ibswfe195_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Compute/virtualMachines/ibWfe2'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_ibWfe2_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "centralus",
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_ibswfeAvailSet_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_A1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2012-R2-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_ibWfe2_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_ibuyspy2016iaas6862_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_ibWfe2_name'),'201671125852.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_ibWfe2_name')]",
+                    "adminUsername": "ivadmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_ibWfe2_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ibwfe2591_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_ibswfeAvailSet_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ibuyspy2016iaas6862_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ibwfe2591_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/loadBalancers/ibsLoadWFEBalancer'.",
+            "type": "Microsoft.Network/loadBalancers",
+            "name": "[parameters('loadBalancers_ibsLoadWFEBalancer_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsLoadWFEBalancerPip2_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "ibsLbBackEndPool"
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "ibsWfeHttpRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_ibsLoadWFEBalancer_id')]"
+                            },
+                            "frontendPort": 80,
+                            "backendPort": 80,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[parameters('loadBalancers_ibsLoadWFEBalancer_id_1')]"
+                            },
+                            "probe": {
+                                "id": "[parameters('loadBalancers_ibsLoadWFEBalancer_id_2')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "ibsHttpProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 80,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [
+                    {
+                        "name": "ibsRdpNatWfe2",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_ibsLoadWFEBalancer_id_3')]"
+                            },
+                            "frontendPort": 5002,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "ibsRdpNatWfe1",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_ibsLoadWFEBalancer_id_4')]"
+                            },
+                            "frontendPort": 5001,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    }
+                ],
+                "outboundNatRules": [],
+                "inboundNatPools": []
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsLoadWFEBalancerPip2_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkInterfaces/ibssql1414'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_ibssql1414_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.4.2.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsSql1_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name')), '/subnets/dataSubnet')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsSql1_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkInterfaces/ibswfe195'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_ibswfe195_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.4.1.6",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsWfe1Pip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name')), '/subnets/wfeSubnet')]"
+                            },
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ibsLoadWFEBalancer_name')), '/backendAddressPools/ibsLbBackEndPool')]"
+                                }
+                            ],
+                            "loadBalancerInboundNatRules": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ibsLoadWFEBalancer_name')), '/inboundNatRules/ibsRdpNatWfe1')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsWfe1Pip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ibsLoadWFEBalancer_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkInterfaces/ibswfe2922'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_ibswfe2922_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.4.1.5",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsWfe2_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name')), '/subnets/wfeSubnet')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibsWfe2_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkInterfaces/ibwfe2591'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_ibwfe2591_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.4.1.7",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibWfe2_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name')), '/subnets/wfeSubnet')]"
+                            },
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ibsLoadWFEBalancer_name')), '/backendAddressPools/ibsLbBackEndPool')]"
+                                }
+                            ],
+                            "loadBalancerInboundNatRules": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ibsLoadWFEBalancer_name')), '/inboundNatRules/ibsRdpNatWfe2')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ibWfe2_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ibsLoadWFEBalancer_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkInterfaces/wfe1187'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_wfe1187_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.4.1.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_wfe1Pip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name')), '/subnets/wfeSubnet')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_wfe1Pip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_ibsVnet_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkSecurityGroups/ibsDataNsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_ibsDataNsg_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "securityRules": []
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/networkSecurityGroups/ibsWfeNsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_ibsWfeNsg_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "nsgInboundHttp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "80",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "AzureLoadBalancer",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "ibsRdpInbound",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "5000-50003",
+                            "destinationPortRange": "5000-5003",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "AzureLoadBalancer",
+                            "access": "Allow",
+                            "priority": 101,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/ibsLoadWFEBalancerPip2'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ibsLoadWFEBalancerPip2_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "ibuyspy2016iaaslb"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/ibsSql1'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ibsSql1_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/ibsWfe1Pip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ibsWfe1Pip_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "ibswfe1"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/ibsWfe2'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ibsWfe2_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/ibWfe2'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ibWfe2_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "ibswfe2"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/publicIPAddresses/wfe1Pip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_wfe1Pip_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/ibuyspy2016-iaas/providers/Microsoft.Network/trafficManagerProfiles/ibuyspy2016iaas'.",
+            "type": "Microsoft.Network/trafficManagerProfiles",
+            "name": "[parameters('trafficManagerProfiles_ibuyspy2016iaas_name')]",
+            "apiVersion": "2015-11-01",
+            "location": "global",
+            "properties": {
+                "profileStatus": "Enabled",
+                "trafficRoutingMethod": "Weighted",
+                "dnsConfig": {
+                    "relativeName": "[parameters('trafficManagerProfiles_ibuyspy2016iaas_name')]",
+                    "fqdn": "[concat(parameters('trafficManagerProfiles_ibuyspy2016iaas_name'),'.trafficmanager.net')]",
+                    "ttl": 300
+                },
+                "monitorConfig": {
+                    "protocol": "HTTP",
+                    "port": 80,
+                    "path": "/"
+                },
+                "endpoints": [
+                    {
+                        "name": "ibsTrafficManagerAppServiceEndPoint",
+                        "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                        "properties": {
+                            "endpointStatus": "Disabled",
+                            "targetResourceId": "[parameters('trafficManagerProfiles_ibuyspy2016iaas_targetResourceId')]",
+                            "target": "ibuyspywebappr4vkeawr3eprc.azurewebsites.net",
+                            "weight": 2,
+                            "priority": 2,
+                            "endpointLocation": "East US"
+                        }
+                    },
+                    {
+                        "name": "ibsTrafficMangerEndPoint",
+                        "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                        "properties": {
+                            "endpointStatus": "Disabled",
+                            "targetResourceId": "[parameters('trafficManagerProfiles_ibuyspy2016iaas_targetResourceId_1')]",
+                            "target": "[concat(parameters('trafficManagerProfiles_ibuyspy2016iaas_name'),'.centralus.cloudapp.azure.com')]",
+                            "weight": 1,
+                            "priority": 3,
+                            "endpointLocation": "Central US"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/IBuySpy2016-Iaas/providers/Microsoft.Network/virtualNetworks/ibsVnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_ibsVnet_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "centralus",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.4.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "wfeSubnet",
+                        "properties": {
+                            "addressPrefix": "10.4.1.0/24"
+                        }
+                    },
+                    {
+                        "name": "dataSubnet",
+                        "properties": {
+                            "addressPrefix": "10.4.2.0/24"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+      {
+        "comments": "Generalized from resource: '/subscriptions/b4b8640d-e096-44a7-b0ef-6cf61b6bc16e/resourceGroups/ibuyspy2016-iaas/providers/Microsoft.Storage/storageAccounts/ibuyspy2016iaas6862'.",
+        "type": "Microsoft.Storage/storageAccounts",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "kind": "Storage",
+        "name": "[parameters('storageAccounts_ibuyspy2016iaas6862_name')]",
+        "apiVersion": "2016-01-01",
+        "location": "centralus",
+        "tags": { },
+        "properties": { },
+        "resources": [ ],
+        "dependsOn": [ ]
+      }
+    ]
+}

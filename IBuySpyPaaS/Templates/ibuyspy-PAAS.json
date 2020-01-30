@@ -1,0 +1,547 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ibuyspysqlserverAdminLogin": {
+      "type": "string",
+      "defaultValue": "IbuyspyAdmin"
+    },
+    "ibuyspysqlserverAdminLoginPassword": {
+      "type": "securestring"
+    }
+  },
+  "variables": {
+    "storageAccountName": "[toLower(concat('ibuyspystg', uniqueString(resourceGroup().id)))]",
+    "endpointName": "[concat('ibuyspycdnep', uniqueString(resourceGroup().id))]",
+    "profileName": "IBuySpyCdnProfile",
+    "ibuyspywebappName": "[concat('ibuyspywebapp', uniqueString(resourceGroup().id))]",
+    "IBuySpyAppServicePlanName": "[concat('ibuyspyplan', uniqueString(resourceGroup().id))]",
+    "IBuySpyAppServicePlanSKU": "Standard",
+    "IBuySpyAppServicePlanWorkerSize": "1",
+    "ibuyspysqlserverName": "[concat('ibuyspysqlsvr', uniqueString(resourceGroup().id))]",
+    "ibuyspysqldbName": "[concat('ibuyspysqldb', uniqueString(resourceGroup().id))]",
+    "ibuyspysqldbCollation": "SQL_Latin1_General_CP1_CI_AS",
+    "ibuyspysqldbEdition": "Basic",
+    "ibuyspysqldbRequestedServiceObjectiveName": "Basic",
+    "searchServiceName": "[toLower(concat('ibuyspysearch', uniqueString(resourceGroup().id)))]",
+    "searchServiceSku": "standard",
+    "appInsightsName": "[concat('ibuyspyappinsights', uniqueString(resourceGroup().id))]",
+    "appInsightsApiVersion": "2014-04-01",
+    "storageApiVersion": "2015-06-15",
+    "searchApiVersion": "2015-02-28",
+    "appServiceApiVersion": "2014-06-01",
+    "cdnApiVersion": "2015-06-01",
+    "webAppsApiVersion": "2015-08-01",
+    "sqlApiVersion": "2014-04-01-preview",
+    "replicaCount": 1,
+    "partitionCount": 1
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('storageAccountName')]",
+      "apiVersion": "[variables('storageApiVersion')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "ibuyspystorageaccount"
+      },
+      "properties": {
+        "accountType": "Standard_LRS"
+      }
+    },
+    {
+      "name": "[variables('profileName')]",
+      "type": "Microsoft.Cdn/profiles",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('cdnApiVersion')]",
+      "tags": {
+        "displayName": "ibuyspycdnprofile"
+      },
+      "properties": {
+        "sku": {
+          "name": "Standard"
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-06-01",
+          "name": "[variables('endpointName')]",
+          "type": "endpoints",
+          "dependsOn": [
+            "[variables('profileName')]",
+            "[variables('storageAccountName')]"
+          ],
+          "location": "[resourceGroup().location]",
+          "tags": {
+            "displayName": "[variables('endpointName')]"
+          },
+          "properties": {
+            "originHostHeader": "[replace(replace(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-06-15' ).primaryEndpoints.blob,'https://',''),'/','')]",
+            "isHttpAllowed": true,
+            "isHttpsAllowed": true,
+            "queryStringCachingBehavior": "IgnoreQueryString",
+            "contentTypesToCompress": [ "text/plain", "text/html", "text/css", "application/x-javascript", "text/javascript" ],
+            "isCompressionEnabled": "True",
+            "origins": [
+              {
+                "name": "origin1",
+                "properties": {
+                  "hostName": "[replace(replace(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-06-15' ).primaryEndpoints.blob,'https://',''),'/','')]"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "[variables('searchApiVersion')]",
+      "name": "[variables('searchServiceName')]",
+      "type": "Microsoft.Search/searchServices",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "ibuyspysearch"
+      },
+      "properties": {
+        "sku": {
+          "name": "[toLower(variables('searchServiceSku'))]"
+        },
+        "replicaCount": "[variables('replicaCount')]",
+        "partitionCount": "[variables('partitionCount')]"
+      }
+    },
+    {
+      "name": "[variables('IBuySpyAppServicePlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appServiceApiVersion')]",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "IBuySpyAppServicePlan"
+      },
+      "properties": {
+        "name": "[variables('IBuySpyAppServicePlanName')]",
+        "sku": "[variables('IBuySpyAppServicePlanSKU')]",
+        "workerSize": "[variables('IBuySpyAppServicePlanWorkerSize')]",
+        "numberOfWorkers": 1
+      }
+    },
+    {
+      "name": "[variables('ibuyspywebappName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('webAppsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]": "Resource",
+        "displayName": "ibuyspywebapp"
+      },
+      "properties": {
+        "name": "[variables('ibuyspywebappName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]"
+      },
+      "resources": [
+        {
+          "name": "appsettings",
+          "type": "config",
+          "apiVersion": "[variables('webAppsApiVersion')]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('ibuyspywebappName'))]",
+            "[concat('Microsoft.Insights/components/', variables('appInsightsName'))]",
+            "[concat('Microsoft.Search/searchServices/', variables('searchServiceName'))]",
+            "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+          ],
+          "tags": {
+            "displayName": "ibuyspyappsettings"
+          },
+          "properties": {
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), variables('appInsightsApiVersion')).InstrumentationKey]",
+            "SearchServiceName": "[variables('searchServiceName')]",
+            "UseAzureSearch": "false",
+            "UseBlobStorageForProductImages": "false",
+            "BlobStorageBaseProductImageUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('storageApiVersion')).primaryEndpoints.blob]",
+            "ShowNewUi": "false",
+            "SearchServiceAdminApiKey": "[listAdminKeys(variables('searchServiceName'), variables('searchApiVersion')).primaryKey]",
+            "SearchServiceQueryApiKey": "SEARCH QUERY KEY HERE"
+          }
+        },
+        {
+          "name": "connectionstrings",
+          "type": "config",
+          "apiVersion": "[variables('webAppsApiVersion')]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('ibuyspywebappName'))]",
+            "[concat('Microsoft.Sql/servers/', variables('ibuyspysqlserverName'))]"
+          ],
+          "tags": {
+            "displayName": "ibuyspyconnectionstrings"
+          },
+          "properties": {
+            "ConnectionStringPaas": {
+              "value": "[concat('Server=tcp:', variables('ibuyspysqlserverName'), '.database.windows.net,1433;Initial Catalog=', variables('ibuyspysqldbName'), ';Persist Security Info=False;User ID=', parameters('ibuyspysqlserverAdminLogin'), ';Password=', parameters('ibuyspysqlserverAdminLoginPassword'), ';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]",
+              "type": "SQLAzure"
+            }
+          }
+        },
+        {
+          "type": "Microsoft.Web/sites/config",
+          "name": "[variables('ibuyspywebappName')]",
+          "apiVersion": "[variables('webAppsApiVersion')]",
+          "location": "[resourceGroup().location]",
+          "tags": {
+            "displayName": "ibuyspywebappconfig"
+          },
+          "scale": null,
+          "properties": {
+            "netFrameworkVersion": "v4.6",
+            "use32BitWorkerProcess": false,
+            "managedPipelineMode": "Integrated"
+          }
+        },
+        {
+          "type": "Microsoft.Web/sites/slots",
+          "kind": "app",
+          "name": "[concat(variables('ibuyspywebappName'), '/old')]",
+          "apiVersion": "[variables('webAppsApiVersion')]",
+          "location": "[resourceGroup().location]",
+          "scale": null,
+          "properties": {
+            "enabled": true,
+            "hostNameSslStates": [
+              {
+                "name": "[concat(variables('ibuyspywebappName'), '-old.azurewebsites.net')]",
+                "hostType": "Standard"
+              },
+              {
+                "name": "[concat(variables('ibuyspywebappName'), '-old.scm.azurewebsites.net')]",
+                "hostType": "Standard"
+              }
+            ],
+            "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('IBuySpyAppServicePlanName'))]"
+          },
+          "resources": [
+            {
+              "name": "appsettings",
+              "type": "config",
+              "apiVersion": "[variables('webAppsApiVersion')]",
+              "dependsOn": [
+              ],
+              "tags": {
+                "displayName": "ibuyspyappsettings"
+              },
+              "properties": {
+                "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), variables('appInsightsApiVersion')).InstrumentationKey]",
+                "SearchServiceName": "[variables('searchServiceName')]",
+                "UseAzureSearch": "false",
+                "UseBlobStorageForProductImages": "false",
+                "BlobStorageBaseProductImageUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('storageApiVersion')).primaryEndpoints.blob]",
+                "ShowNewUi": "false",
+                "SearchServiceAdminApiKey": "[listAdminKeys(variables('searchServiceName'), variables('searchApiVersion')).primaryKey]",
+                "SearchServiceQueryApiKey": "SEARCH QUERY KEY HERE"
+              }
+            },
+            {
+              "name": "connectionstrings",
+              "type": "config",
+              "apiVersion": "[variables('webAppsApiVersion')]",
+              "dependsOn": [
+                "[concat('Microsoft.Web/sites/', variables('ibuyspywebappName'))]",
+                "[concat('Microsoft.Sql/servers/', variables('ibuyspysqlserverName'))]"
+              ],
+              "tags": {
+                "displayName": "ibuyspyconnectionstrings"
+              },
+              "properties": {
+                "ConnectionStringPaas": {
+                  "value": "[concat('Server=tcp:', variables('ibuyspysqlserverName'), '.database.windows.net,1433;Initial Catalog=', variables('ibuyspysqldbName'), ';Persist Security Info=False;User ID=', parameters('ibuyspysqlserverAdminLogin'), ';Password=', parameters('ibuyspysqlserverAdminLoginPassword'), ';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]",
+                  "type": "SQLAzure"
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Web/sites/config",
+              "name": "[variables('ibuyspywebappName')]",
+              "apiVersion": "[variables('webAppsApiVersion')]",
+              "location": "[resourceGroup().location]",
+              "tags": {
+                "displayName": "ibuyspywebappconfig"
+              },
+              "scale": null,
+              "properties": {
+                "netFrameworkVersion": "v4.6",
+                "use32BitWorkerProcess": false,
+                "managedPipelineMode": "Integrated"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "[concat(variables('appInsightsName'), '-autoscalesettings')]",
+      "type": "Microsoft.Insights/autoscalesettings",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appInsightsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]": "Resource",
+        "displayName": "ibuyspyappinsights AutoScale"
+      },
+      "properties": {
+        "name": "[concat(variables('appInsightsName'), '-autoscalesettings')]",
+        "profiles": [
+          {
+            "name": "Default",
+            "capacity": {
+              "minimum": 1,
+              "maximum": 2,
+              "default": 1
+            },
+            "rules": [
+              {
+                "metricTrigger": {
+                  "metricName": "CpuPercentage",
+                  "metricResourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT10M",
+                  "timeAggregation": "Average",
+                  "operator": "GreaterThan",
+                  "threshold": 80
+                },
+                "scaleAction": {
+                  "direction": "Increase",
+                  "type": "ChangeCount",
+                  "value": 1,
+                  "cooldown": "PT10M"
+                }
+              },
+              {
+                "metricTrigger": {
+                  "metricName": "CpuPercentage",
+                  "metricResourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT1H",
+                  "timeAggregation": "Average",
+                  "operator": "LessThan",
+                  "threshold": 60
+                },
+                "scaleAction": {
+                  "direction": "Decrease",
+                  "type": "ChangeCount",
+                  "value": 1,
+                  "cooldown": "PT1H"
+                }
+              }
+            ]
+          }
+        ],
+        "enabled": false,
+        "targetResourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]"
+      }
+    },
+    {
+      "name": "[concat(variables('appInsightsName'), '-CPUHigh')]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appInsightsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]": "Resource",
+        "displayName": "ibuyspyappinsights CPUHigh"
+      },
+      "properties": {
+        "name": "[concat(variables('appInsightsName'), '-CPUHigh')]",
+        "description": "[concat('The average CPU is high across all the instances of ', variables('IBuySpyAppServicePlanName'))]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]",
+            "metricName": "CpuPercentage"
+          },
+          "operator": "GreaterThan",
+          "threshold": 90,
+          "windowSize": "PT15M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": []
+        }
+      }
+    },
+    {
+      "name": "[concat(variables('appInsightsName'), '-LongHttpQueue')]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appInsightsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]": "Resource",
+        "displayName": "ibuyspyappinsights LongHttpQueue"
+      },
+      "properties": {
+        "name": "[concat(variables('IBuySpyAppServicePlanName'), '-LongHttpQueue')]",
+        "description": "[concat('The HTTP queue for the instances of ', variables('IBuySpyAppServicePlanName'), ' has a large number of pending requests.')]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('IBuySpyAppServicePlanName'))]",
+            "metricName": "HttpQueueLength"
+          },
+          "operator": "GreaterThan",
+          "threshold": 100,
+          "windowSize": "PT5M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": []
+        }
+      }
+    },
+    {
+      "name": "[concat(variables('appInsightsName'), '-ServerErrors')]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appInsightsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', variables('ibuyspywebappName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('ibuyspywebappName'))]": "Resource",
+        "displayName": "ibuyspyappinsights ServerErrors"
+      },
+      "properties": {
+        "name": "[concat(variables('appInsightsName'), '-ServerErrors')]",
+        "description": "[concat(variables('ibuyspywebappName'), ' has some server errors, status code 5xx.')]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('ibuyspywebappName'))]",
+            "metricName": "Http5xx"
+          },
+          "operator": "GreaterThan",
+          "threshold": 0,
+          "windowSize": "PT5M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": []
+        }
+      }
+    },
+    {
+      "name": "[concat(variables('appInsightsName'), '-ForbiddenRequests')]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appInsightsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', variables('ibuyspywebappName'))]"
+      ],
+      "tags": {
+        "displayName": "ibuyspyappinsights ForbiddenRequests"
+      },
+      "properties": {
+        "name": "[concat(variables('appInsightsName'), '-ForbiddenRequests')]",
+        "description": "[concat(variables('ibuyspywebappName'), ' has some requests that are forbidden, status code 403.')]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('ibuyspywebappName'))]",
+            "metricName": "Http403"
+          },
+          "operator": "GreaterThan",
+          "threshold": 0,
+          "windowSize": "PT5M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": []
+        }
+      }
+    },
+    {
+      "name": "[variables('appInsightsName')]",
+      "type": "Microsoft.Insights/components",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('appInsightsApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', variables('ibuyspywebappName'))]"
+      ],
+      "tags": {
+        "displayName": "ibuyspyappinsights Component"
+      },
+      "properties": {
+        "applicationId": "[variables('ibuyspywebappName')]"
+      }
+    },
+    {
+      "name": "[variables('ibuyspysqlserverName')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('sqlApiVersion')]",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "ibuyspysqlserver"
+      },
+      "properties": {
+        "administratorLogin": "[parameters('ibuyspysqlserverAdminLogin')]",
+        "administratorLoginPassword": "[parameters('ibuyspysqlserverAdminLoginPassword')]"
+      },
+      "resources": [
+        {
+          "name": "AllowAllWindowsAzureIps",
+          "type": "firewallrules",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "[variables('sqlApiVersion')]",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('ibuyspysqlserverName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
+          "name": "[variables('ibuyspysqldbName')]",
+          "type": "databases",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "[variables('sqlApiVersion')]",
+          "dependsOn": [
+            "[variables('ibuyspysqlserverName')]"
+          ],
+          "tags": {
+            "displayName": "ibuyspysqldb"
+          },
+          "properties": {
+            "collation": "[variables('ibuyspysqldbCollation')]",
+            "edition": "[variables('ibuyspysqldbEdition')]",
+            "maxSizeBytes": "1073741824",
+            "requestedServiceObjectiveName": "[variables('ibuyspysqldbRequestedServiceObjectiveName')]"
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": {}  
+}

@@ -1,0 +1,220 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Configuration;
+<font color= "blue">using</font> System.Data;
+<font color= "blue">using</font> System.Data.SqlClient;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce {
+
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// OrderDetails Class</font>
+    <font color= "green">//</font>
+    <font color= "green">// A simple data class that encapsulates details about</font>
+    <font color= "green">// a particular order inside the Commerce Starter Kit Orders</font>
+    <font color= "green">// database.</font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************</font>
+
+    <font color= "blue">public</font> <font color= "blue">class</font> OrderDetails {
+
+        <font color= "blue">public</font> DateTime  OrderDate;
+        <font color= "blue">public</font> DateTime  ShipDate;
+        <font color= "blue">public</font> decimal   OrderTotal;
+        <font color= "blue">public</font> DataSet   OrderItems;
+    }
+
+    <font color= "green">//*******************************************************</font>
+    <font color= "green">//</font>
+    <font color= "green">// OrderHistoryDB Class</font>
+    <font color= "green">//</font>
+    <font color= "green">// Business/Data Logic Class that encapsulates all data</font>
+    <font color= "green">// logic necessary to query past orders within the</font>
+    <font color= "green">// Commerce Starter Kit Orders database.</font>
+    <font color= "green">//</font>
+    <font color= "green">//*******************************************************</font>
+
+    <font color= "blue">public</font> <font color= "blue">class</font> OrdersDB {
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// CustomerDB.GetCustomerOrders() Method &lt;a name=&quot;GetCustomerOrders&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetCustomerOrders method returns a struct containing</font>
+        <font color= "green">// a forward-only, read-only DataReader.  This displays a list of all</font>
+        <font color= "green">// past orders placed by a specified customer.</font>
+        <font color= "green">// The SQLDataReaderResult struct also returns the SQL connection,</font>
+        <font color= "green">// which must be explicitly closed after the data from the DataReader</font>
+        <font color= "green">// is bound into the controls.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;OrdersList.htm&quot; style=&quot;color:green&quot;&gt;OrdersList Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> SqlDataReader GetCustomerOrders(String customerID) 
+        {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_OrdersList&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterCustomerid = <font color= "blue">new</font> SqlParameter(&quot;@CustomerID&quot;, SqlDbType.Int, 4);
+            parameterCustomerid.Value = Int32.Parse(customerID);
+            myCommand.Parameters.Add(parameterCustomerid);
+
+            <font color= "green">// Execute the command</font>
+            myConnection.Open();
+            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+            <font color= "green">// Return the datareader result</font>
+            <font color= "blue">return</font> result;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// OrdersDB.GetOrderDetails() Method &lt;a name=&quot;GetOrderDetails&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The GetOrderDetails method returns an OrderDetails</font>
+        <font color= "green">// struct containing information about the specified</font>
+        <font color= "green">// order.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;OrdersDetail.htm&quot; style=&quot;color:green&quot;&gt;OrdersDetail Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">// </font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> OrderDetails GetOrderDetails(<font color= "blue">int</font> orderID, <font color= "blue">string</font> customerID) 
+        {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlDataAdapter myCommand = <font color= "blue">new</font> SqlDataAdapter(&quot;CMRC_OrdersDetail&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterOrderID = <font color= "blue">new</font> SqlParameter(&quot;@OrderID&quot;, SqlDbType.Int, 4);
+            parameterOrderID.Value = orderID;
+            myCommand.SelectCommand.Parameters.Add(parameterOrderID);
+
+            SqlParameter parameterCustomerID = <font color= "blue">new</font> SqlParameter(&quot;@CustomerID&quot;, SqlDbType.Int, 4);
+            parameterCustomerID.Value = Int32.Parse(customerID);
+            myCommand.SelectCommand.Parameters.Add(parameterCustomerID);
+
+            SqlParameter parameterOrderDate = <font color= "blue">new</font> SqlParameter(&quot;@OrderDate&quot;, SqlDbType.DateTime, 8);
+            parameterOrderDate.Direction = ParameterDirection.Output;
+            myCommand.SelectCommand.Parameters.Add(parameterOrderDate);
+
+            SqlParameter parameterShipDate = <font color= "blue">new</font> SqlParameter(&quot;@ShipDate&quot;, SqlDbType.DateTime, 8);
+            parameterShipDate.Direction = ParameterDirection.Output;
+            myCommand.SelectCommand.Parameters.Add(parameterShipDate);
+
+            SqlParameter parameterOrderTotal = <font color= "blue">new</font> SqlParameter(&quot;@OrderTotal&quot;, SqlDbType.Money, 8);
+            parameterOrderTotal.Direction = ParameterDirection.Output;
+            myCommand.SelectCommand.Parameters.Add(parameterOrderTotal);
+
+            <font color= "green">// Create and Fill the DataSet</font>
+            DataSet myDataSet = <font color= "blue">new</font> DataSet();
+            myCommand.Fill(myDataSet, &quot;OrderItems&quot;);
+            
+            <font color= "green">// ship date is null if order doesn't exist, or belongs to a different user</font>
+            <font color= "blue">if</font> (parameterShipDate.Value != DBNull.Value) {
+            
+                <font color= "green">// Create and Populate OrderDetails Struct using</font>
+                <font color= "green">// Output Params from the SPROC, as well as the</font>
+                <font color= "green">// populated dataset from the SqlDataAdapter</font>
+
+                OrderDetails myOrderDetails = <font color= "blue">new</font> OrderDetails();
+
+                myOrderDetails.OrderDate = (DateTime)parameterOrderDate.Value;
+                myOrderDetails.ShipDate = (DateTime)parameterShipDate.Value;
+                myOrderDetails.OrderTotal = (decimal)parameterOrderTotal.Value;
+                myOrderDetails.OrderItems = myDataSet;
+
+                <font color= "green">// Return the DataSet</font>
+                <font color= "blue">return</font> myOrderDetails;
+            }
+            <font color= "blue">else</font>
+                <font color= "blue">return</font> <font color= "blue">null</font>;
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// OrdersDB.CalculateShippingDate() Method &lt;a name=&quot;CalculateShippingDate&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The CalculateShippingDate method would be where you would</font>
+        <font color= "green">// place all of the code necessary to calculate the shipping</font>
+        <font color= "green">// ETA.  For now, we are just making up a random date.</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> DateTime CalculateShippingDate(String customerID, <font color= "blue">string</font> cartID) {
+
+            Random x = <font color= "blue">new</font> Random();
+            double myrandom = (double)x.Next(0,3);
+            <font color= "blue">return</font> DateTime.Now.AddDays(myrandom);
+        }
+
+        <font color= "green">//*******************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// OrdersDB.PlaceOrder() Method &lt;a name=&quot;PlaceOrder&quot;&gt;&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">// The PlaceOrder method places an order within the</font>
+        <font color= "green">// Commerce Starter Kit Orders Database and then clears out the current</font>
+        <font color= "green">// items within the shopping cart.</font>
+        <font color= "green">//</font>
+        <font color= "green">// Other relevant sources:</font>
+        <font color= "green">//     + &lt;a href=&quot;OrdersAdd.htm&quot; style=&quot;color:green&quot;&gt;OrdersAdd Stored Procedure&lt;/a&gt;</font>
+        <font color= "green">//</font>
+        <font color= "green">//*******************************************************</font>
+
+        <font color= "blue">public</font> <font color= "blue">int</font> PlaceOrder(<font color= "blue">string</font> customerID, <font color= "blue">string</font> cartID) 
+        {
+
+            <font color= "green">// Create Instance of Connection and Command Object</font>
+            SqlConnection myConnection = <font color= "blue">new</font> SqlConnection(ConfigurationManager.AppSettings[&quot;ConnectionString&quot;]);
+            SqlCommand myCommand = <font color= "blue">new</font> SqlCommand(&quot;CMRC_OrdersAdd&quot;, myConnection);
+
+            <font color= "green">// Mark the Command as a SPROC</font>
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            <font color= "green">// Add Parameters to SPROC</font>
+            SqlParameter parameterCustomerID = <font color= "blue">new</font> SqlParameter(&quot;@CustomerID&quot;, SqlDbType.Int, 4);
+            parameterCustomerID.Value = Int32.Parse(customerID);
+            myCommand.Parameters.Add(parameterCustomerID);
+
+            SqlParameter parameterCartID = <font color= "blue">new</font> SqlParameter(&quot;@CartID&quot;, SqlDbType.NVarChar, 50);
+            parameterCartID.Value = cartID;
+            myCommand.Parameters.Add(parameterCartID);
+
+            SqlParameter parameterShipDate = <font color= "blue">new</font> SqlParameter(&quot;@ShipDate&quot;, SqlDbType.DateTime, 8);
+            parameterShipDate.Value = CalculateShippingDate(customerID, cartID);
+            myCommand.Parameters.Add(parameterShipDate);
+
+            SqlParameter parameterOrderDate = <font color= "blue">new</font> SqlParameter(&quot;@OrderDate&quot;, SqlDbType.DateTime, 8);
+            parameterOrderDate.Value = DateTime.Now;
+            myCommand.Parameters.Add(parameterOrderDate);
+
+            SqlParameter parameterOrderID = <font color= "blue">new</font> SqlParameter(&quot;@OrderID&quot;, SqlDbType.Int, 4);
+            parameterOrderID.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterOrderID);
+
+            <font color= "green">// Open the connection and execute the Command</font>
+            myConnection.Open();
+            myCommand.ExecuteNonQuery();
+            myConnection.Close();
+
+            <font color= "green">// Return the OrderID</font>
+            <font color= "blue">return</font> (<font color= "blue">int</font>)parameterOrderID.Value;
+        }
+    }
+}
+
+</pre></font>

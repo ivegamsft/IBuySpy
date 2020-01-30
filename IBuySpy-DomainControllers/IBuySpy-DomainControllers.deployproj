@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>5877f6f3-28e6-41df-a572-9a24affcc4cb</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkIdentifier>Deployment</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>1.0</TargetFrameworkVersion>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
+    <Content Include="Templates\azuredeploy.json" />
+    <Content Include="Templates\azuredeploy.parameters.json" />
+    <None Include="DSC\cDisk\cDisk.psd1" />
+    <None Include="DSC\cDisk\DSCResources\SAMPLE_cDiskNoRestart\SAMPLE_cDiskNoRestart.psm1" />
+    <None Include="DSC\cDisk\DSCResources\SAMPLE_cDiskNoRestart\SAMPLE_cDiskNoRestart.schema.mof" />
+    <None Include="DSC\CreateADPDC.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADCommon\MSFT_xADCommon.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADCommon\MSFT_xADCommon.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainController\MSFT_xADDomainController.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainController\MSFT_xADDomainController.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADCommon\MSFT_xADCommon.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADCommon\MSFT_xADCommon.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomainController\MSFT_xADDomainController.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomainController\MSFT_xADDomainController.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomainTrust.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomainTrust.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomainTrust\MSFT_xADDomainTrust.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomainTrust\MSFT_xADDomainTrust.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomain\MSFT_xADDomain.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADDomain\MSFT_xADDomain.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADGroup\MSFT_xADGroup.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADGroup\MSFT_xADGroup.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADOrganizationalUnit\MSFT_xADOrganizationalUnit.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADOrganizationalUnit\MSFT_xADOrganizationalUnit.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADRecycleBin\Examples\xActiveDirectory_xADRecycleBin.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADRecycleBin\MSFT_xADRecycleBin.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADRecycleBin\MSFT_xADRecycleBin.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADRecycleBin\ResourceDesignerScripts\GeneratexADRecycleBinSchema.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADUser\MSFT_xADUser.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xADUser\MSFT_xADUser.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xWaitForADDomain\MSFT_xWaitForADDomain.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomainTrust\MSFT_xWaitForADDomain\MSFT_xWaitForADDomain.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomain\MSFT_xADDomain.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADDomain\MSFT_xADDomain.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADGroup\MSFT_xADGroup.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADGroup\MSFT_xADGroup.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADOrganizationalUnit\MSFT_xADOrganizationalUnit.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADOrganizationalUnit\MSFT_xADOrganizationalUnit.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADRecycleBin\Examples\xActiveDirectory_xADRecycleBin.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADRecycleBin\MSFT_xADRecycleBin.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADRecycleBin\MSFT_xADRecycleBin.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADRecycleBin\ResourceDesignerScripts\GeneratexADRecycleBinSchema.ps1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADUser\MSFT_xADUser.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xADUser\MSFT_xADUser.schema.mof" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xWaitForADDomain\MSFT_xWaitForADDomain.psm1" />
+    <None Include="DSC\xActiveDirectory\DSCResources\MSFT_xWaitForADDomain\MSFT_xWaitForADDomain.schema.mof" />
+    <None Include="DSC\xActiveDirectory\xActiveDirectory.psd1" />
+    <None Include="DSC\xActiveDirectory\xActiveDirectory_TechNetDocumentation.html" />
+    <None Include="DSC\xDisk\DSCResources\MSFT_xDisk\MSFT_xDisk.psm1" />
+    <None Include="DSC\xDisk\DSCResources\MSFT_xDisk\MSFT_xDisk.schema.mof" />
+    <None Include="DSC\xDisk\DSCResources\MSFT_xWaitForDisk\MSFT_xWaitForDisk.psm1" />
+    <None Include="DSC\xDisk\DSCResources\MSFT_xWaitForDisk\MSFT_xWaitForDisk.schema.mof" />
+    <None Include="DSC\xDisk\PSGetModuleInfo.xml" />
+    <None Include="DSC\xDisk\xDisk.psd1" />
+    <None Include="DSC\xDisk\xDisk_Documentation.html" />
+    <None Include="DSC\xNetworking\DSCResources\MSFT_xDNSServerAddress\MSFT_xDNSServerAddress.psm1" />
+    <None Include="DSC\xNetworking\DSCResources\MSFT_xDNSServerAddress\MSFT_xDNSServerAddress.schema.mof" />
+    <None Include="DSC\xNetworking\DSCResources\MSFT_xFirewall\MSFT_xFirewall.psm1" />
+    <None Include="DSC\xNetworking\DSCResources\MSFT_xFirewall\MSFT_xFirewall.Schema.mof" />
+    <None Include="DSC\xNetworking\DSCResources\MSFT_xIPAddress\MSFT_xIPAddress.psm1" />
+    <None Include="DSC\xNetworking\DSCResources\MSFT_xIPAddress\MSFT_xIPAddress.schema.mof" />
+    <None Include="DSC\xNetworking\Examples\Sample_xDnsServerAddress.ps1" />
+    <None Include="DSC\xNetworking\Examples\Sample_xFirewall_AddFirewallRule.ps1" />
+    <None Include="DSC\xNetworking\Examples\Sample_xFirewall_AddFirewallRuleToExistingGroup.ps1" />
+    <None Include="DSC\xNetworking\Examples\Sample_xFirewall_AddFirewallRuleToNewGroup.ps1" />
+    <None Include="DSC\xNetworking\Examples\Sample_xFirewall_DisableAccessToApplication.ps1" />
+    <None Include="DSC\xNetworking\Examples\Sample_xIPAddress_FixedValue.ps1" />
+    <None Include="DSC\xNetworking\Examples\Sample_xIPAddress_Parameterized.ps1" />
+    <None Include="DSC\xNetworking\xNetworking.psd1" />
+    <None Include="DSC\xNetworking\xNetworking_TechNetDocumentation.html" />
+    <None Include="DSC\xPendingReboot\DSCResources\MSFT_xPendingReboot\MSFT_xPendingReboot.psm1" />
+    <None Include="DSC\xPendingReboot\DSCResources\MSFT_xPendingReboot\MSFT_xPendingReboot.schema.mof" />
+    <None Include="DSC\xPendingReboot\xPendingReboot.psd1" />
+    <None Include="DSC\xPendingReboot\xPendingReboot_Documentation.html" />
+    <None Include="Templates\NestedTemplates\vnet-with-dns-server.json" />
+    <None Include="Templates\NestedTemplates\vnet.json" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>

@@ -1,0 +1,44 @@
+<font size="3">
+<pre>
+<font color= "blue">&lt;</font><font color="maroon">?xml</font> version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?<font color= "blue">&gt;</font>
+<font color= "blue">&lt;</font><font color="maroon">configuration</font><font color= "blue">&gt;</font>
+    <font color= "green">&lt;!-- application specific settings --&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">appSettings</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">add</font> key=&quot;ConnectionString&quot; value=&quot;server=localhost;Trusted_Connection=true;database=StarterKits&quot; <font color= "blue">/&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">appSettings</font><font color= "blue">&gt;</font>
+    <font color= "green">&lt;!-- forms based authentication --&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+        <font color= "green">&lt;!-- enable Forms authentication --&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">authentication</font> mode=&quot;Forms&quot;<font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">forms</font> name=&quot;CommerceAuth&quot; loginUrl=&quot;login.aspx&quot; protection=&quot;All&quot; path=&quot;/&quot; <font color= "blue">/&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">authentication</font><font color= "blue">&gt;</font>
+        <font color= "green">&lt;!-- enable custom errors for the application --&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">customErrors</font> mode=&quot;RemoteOnly&quot; defaultRedirect=&quot;ErrorPage.aspx&quot; <font color= "blue">/&gt;</font>
+        <font color= "green">&lt;!-- disable session state for application --&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">sessionState</font> mode=&quot;Off&quot; <font color= "blue">/&gt;</font>
+         <font color= "blue">&lt;</font><font color="maroon">globalization</font> fileEncoding=&quot;utf-8&quot; requestEncoding=&quot;utf-8&quot; responseEncoding=&quot;utf-8&quot;<font color= "blue">/&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+    <font color= "green">&lt;!-- set secure paths --&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">location</font> path=&quot;Checkout.aspx&quot;<font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">authorization</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">deny</font> users=&quot;?&quot; <font color= "blue">/&gt;</font>
+            <font color= "blue">&lt;/</font><font color="maroon">authorization</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">location</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">location</font> path=&quot;OrderList.aspx&quot;<font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">authorization</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">deny</font> users=&quot;?&quot; <font color= "blue">/&gt;</font>
+            <font color= "blue">&lt;/</font><font color="maroon">authorization</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">location</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;</font><font color="maroon">location</font> path=&quot;OrderDetails.aspx&quot;<font color= "blue">&gt;</font>
+        <font color= "blue">&lt;</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+            <font color= "blue">&lt;</font><font color="maroon">authorization</font><font color= "blue">&gt;</font>
+                <font color= "blue">&lt;</font><font color="maroon">deny</font> users=&quot;?&quot; <font color= "blue">/&gt;</font>
+            <font color= "blue">&lt;/</font><font color="maroon">authorization</font><font color= "blue">&gt;</font>
+        <font color= "blue">&lt;/</font><font color="maroon">system.web</font><font color= "blue">&gt;</font>
+    <font color= "blue">&lt;/</font><font color="maroon">location</font><font color= "blue">&gt;</font>
+<font color= "blue">&lt;/</font><font color="maroon">configuration</font><font color= "blue">&gt;</font>
+</pre></font>

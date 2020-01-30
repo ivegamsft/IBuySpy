@@ -1,0 +1,47 @@
+<font size="3">
+<pre>
+<font color= "blue">using</font> System;
+<font color= "blue">using</font> System.Collections;
+<font color= "blue">using</font> System.ComponentModel;
+<font color= "blue">using</font> System.Web;
+<font color= "blue">using</font> System.Security;
+<font color= "blue">using</font> System.Security.Principal;
+<font color= "blue">using</font> System.Web.Security;
+<font color= "blue">using</font> System.Data.SqlClient;
+<font color= "blue">using</font> System.Threading;
+<font color= "blue">using</font> System.Globalization;
+
+<font color= "blue">namespace</font> ASPNET.StarterKit.Commerce 
+{
+
+    <font color= "blue">public</font> <font color= "blue">class</font> Global : System.Web.HttpApplication 
+    {
+
+        <font color= "green">//*********************************************************************</font>
+        <font color= "green">//</font>
+        <font color= "green">// Application_BeginRequest Event</font>
+        <font color= "green">//</font>
+        <font color= "green">// The Application_BeginRequest method is an ASP.NET event that executes </font>
+        <font color= "green">// on each web request into the portal application.  The below method</font>
+        <font color= "green">// obtains the current tabIndex and TabId from the querystring of the </font>
+        <font color= "green">// request -- and then obtains the configuration necessary to process</font>
+        <font color= "green">// and render the request.</font>
+        <font color= "green">//</font>
+        <font color= "green">// This portal configuration is stored within the application's &quot;Context&quot;</font>
+        <font color= "green">// object -- which is available to all pages, controls and components</font>
+        <font color= "green">// during the processing of a single request.</font>
+        <font color= "green">// </font>
+        <font color= "green">//*********************************************************************</font>
+
+        <font color= "blue">protected</font> <font color= "blue">void</font> Application_BeginRequest(Object sender, EventArgs e) 
+        {
+                
+            Thread.CurrentThread.CurrentCulture =  System.Globalization.CultureInfo.CreateSpecificCulture(Request.UserLanguages[0]);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+            
+        }
+      
+    }
+}
+
+</pre></font>
